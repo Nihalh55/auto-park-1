@@ -3,29 +3,29 @@ This directory holds all reports submitted for evaluation for Roll No.s 16CO114 
 
 ## Lab Reports
 
-  - [x] **Report 1** - 15%
+  - [x] **Report 1** - 15%  
         Life Cycle Model and CASE Tools  
-  - [x] **Report 2** - 10%
+  - [x] **Report 2** - 10%  
         Domain Model and Diagrams
-  - [x] **Report 3** - 20%
+  - [x] **Report 3** - 20%  
         Software Requirements Specification
-  - [ ] **Report 4** - 30%
+  - [ ] **Report 4** - 30%  
         Design and Development
-  - [ ] **Report 5** - 10%
+  - [ ] **Report 5** - 10%  
         Revision and Improvement
-  - [ ] **Report 6** - 10%
+  - [ ] **Report 6** - 10%  
         Testing
-  - [x] **Assignment 1** - 5%
+  - [x] **Assignment 1** - 5%  
         Report 2 but lesser.
 
 ## Theory Reports
-  - [x] **Report 1** - 5%
+  - [x] **Report 1** - 5%  
         Various domains and technical articles related to our software.
-  - [x] **Report 2** - 15%
+  - [x] **Report 2** - 15%  
         Systematic Mapping Study of Convolutional Neural Networks.
-  - [ ] **Report 3** - 30%
+  - [ ] **Report 3** - 30%  
         Design activity with modified conceptual model
-  - [ ] **Report 4** - 30%
+  - [ ] **Report 4** - 30%  
         Implementation and Documentation.
-  - [ ] **"Involvement"** - 20%
+  - [ ] **"Involvement"** - 20%  
         Trash
