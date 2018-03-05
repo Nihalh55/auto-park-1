@@ -1,0 +1,2 @@
+# Documentation
+This directory holds all documentation considered useful for the development of the software. It's a subset of evaluated-docs. It does not include any document that would not directly help with development.
