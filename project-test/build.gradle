@@ -5,6 +5,7 @@ apply plugin: 'java'
 
 sourceCompatibility = 1.8
 
+/*
 task fatJar(type: Jar) {
     manifest {
         attributes 'Implementation-Title': 'Gradle Jar File',
@@ -14,6 +15,16 @@ task fatJar(type: Jar) {
     baseName = project.name + '-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
+}
+*/
+
+jar {
+  manifest {
+    attributes(
+      'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+      'Main-Class': 'hello.class1'
+    )
+  }
 }
 
 repositories {
