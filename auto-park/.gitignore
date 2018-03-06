@@ -37,6 +37,9 @@ ehthumbs.db
 Thumbs.db
 
 .gradle
+.project
+.classpath
+/.settings/
 /build/
 /out/
 /.idea/
