@@ -8,7 +8,7 @@ import java.util.LinkedList;
  * this information.
  */
 
-public class Slot{
+public class Slot_me{
 
     // Slot characteristics
     private int slot_id;
