@@ -2,7 +2,7 @@ package PAS;
 //Layout Class
 //This class decribes the parking layout which will be inputted by the user
 
-//import jxl.*;
+import jxl.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
