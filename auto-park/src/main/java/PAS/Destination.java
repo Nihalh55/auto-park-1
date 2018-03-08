@@ -1,3 +1,4 @@
+package PAS;
 //Destination Class
 //This class decribes the destinations available around the parking Layout
 

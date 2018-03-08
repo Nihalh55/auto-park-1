@@ -1,3 +1,4 @@
+package PAS;
 //Car Log Class
 //This class tells the log of the car that pakred at a slot
 
@@ -24,7 +25,7 @@ public class CarLog{
 
     public String getNumberPlate(){
 
-        //Function to get the number plate of the car that is parked at the slot
+        /** Function to get the number plate of the car that is parked at the slot */
         return car_number_plate;
     }
 
@@ -47,7 +48,6 @@ public class CarLog{
 
     //Main
     public static void main(String[] args) {
-
         //System.out.println("hi");
     }
 }

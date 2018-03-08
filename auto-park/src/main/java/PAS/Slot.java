@@ -1,27 +1,69 @@
-//Slot Class
-//This class decribes the slots available at the parking Layout
+package PAS;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+
+/**
+ * The Slot class holds all information pertaining
+ * to a parking slot and provides methods to modify
+ * this information.
+ */
 
 public class Slot{
 
-    //Main class begins
-    //Data memeber declaration
+    // Slot characteristics
+    private int slot_id;
+    private double[] distances;
+    private int status;          
+    // Check reqs;
+    //holds the status of the slot , i.e , 2 => car parked & 1 ==> car assigned but not parked & 0 => available &  & -1 => disabled
 
-    private int     slot_ID;                                        //holds the ID of the slot
-    private int     status;                                         //holds the status of the slot , i.e , 0 => car parked & 1 => available & -1=> disabled
-    private String  car_number_plate;                               //holds the number plate info. of the car currently occupying the slot
-    private int     car_count;                                      //holds the number of cars that parked at that slot
-    private int     offense_flag;                                   //holds offense status , i.e , 0=> No offense , 1=> offense
-    private int     offense_count;                                  //holds the number of times an offense has taken place at that slot
-    private 
-    private ArrayList<Double>   distance_to_destination;            //holds the distances to various destinations present in and around the parking layout
+    // w.r.t Layout class
+    private Car assigned_car;    // Car assigned by the layout class
+    private LinkedList<Car> car_log;  
 
+    // w.r.t SOU class
+    private Car sou_car;       // Car returned by the sou class
+    private boolean offense_flag;
+    private int offense_count;
 
+    // SOU object
+    // SOU sou
 
-    //Main
-    public static void main(String[] args) {
-
-        //System.out.println("hi");
+    /*
+    private void souComms()
+    {
+        while (!sou.detect());
+        sou_car.car_number = sou.getCarNumber();
+        
     }
+    
+    private bool isOffense()
+    {
+        offense_flag = !(sou_car.car_number == assigned_car.car_number);
+        return offense_flag;
+    }
+
+    */
+
+    public Slot(int id){
+        slot_id = id;
+        offense_flag = false;
+    }
+
+    public void setDistances(double[] dist){
+        distances = dist;
+    }
+
+    public double[] getDistances(){
+        return distances;
+    }
+
+    public void assignCar(String car_number)
+    {
+        assigned_car.car_number = car_number;
+        assigned_car.enteredNow();
+    }
+    
+
+
 }
