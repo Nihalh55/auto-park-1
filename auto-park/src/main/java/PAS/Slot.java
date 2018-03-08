@@ -1,58 +1,61 @@
-package PAS;
-
-import java.util.LinkedList;
-
 /**
  * The Slot class holds all information pertaining
  * to a parking slot and provides methods to modify
  * this information.
  */
+package PAS;
+
+import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class Slot{
 
-    // Slot characteristics
-    private int slot_id;
-    private double[] distances;
-    private int status;          
-    // Check reqs;
-    //holds the status of the slot , i.e , 2 => car parked & 1 ==> car assigned but not parked & 0 => available &  & -1 => disabled
+    //Main class begins
+    //Data memeber declaration
 
-    // w.r.t Layout class
-    private Car assigned_car;    // Car assigned by the layout class
-    private LinkedList<Car> car_log;  
+    private int     slot_ID;                                        //holds the ID of the slot
+    private int     status;                                         //holds the status of the slot , i.e , 2 => car parked & 1 ==> car assigned but not parked & 0 => available &  & -1 => disabled
+    private int     car_count;                                      //holds the number of cars that parked at that slot
+    private int     offense_count;                                  //holds the number of times an offense has taken place at that slot
+    private boolean offense_flag;                                   //holds offense status
+    private String  car_number_plate;                               //holds the number plate info. of the car currently occupying the slot
+    private SOU     sou;                                            //holds the info. of the SOU at the slot
+    private Car     assigned_car;                                   //holds info. of car assigned by the layout class
+    private Car     sou_car;                                        //holds the info. of car returned by the sou class
+    private LinkedList<Car>     car_log;                            //holds information of all the cars that visited the slot
+    private ArrayList<Double>   distance_to_destination;            //holds the distances to various destinations present in and around the parking layout
 
-    // w.r.t SOU class
-    private Car sou_car;       // Car returned by the sou class
-    private boolean offense_flag;
-    private int offense_count;
+    //Method declarations
 
-    // SOU object
-    // SOU sou
+    public Slot(int id){
 
-    /*
-    private void souComms()
-    {
+        //Constructor to intialise values to data members
+        slot_ID = id;
+        offense_flag = false;
+    }
+
+    private void souComms(){
+
+        //Function to car number plate via the SOU
         while (!sou.detect());
         sou_car.car_number = sou.getCarNumber();
-        
     }
-    
-    private bool isOffense()
-    {
+
+    private boolean isOffense(){
+
+        //Function to determine if offense is taking place
         offense_flag = !(sou_car.car_number == assigned_car.car_number);
         return offense_flag;
     }
 
-    */
+    public void setDistancesToDestinations(ArrayList<Double> dist){
 
-    public Slot(int id){
-        slot_id = id;
-        offense_flag = false;
+        //Function to assign distances to all destinatons from slot
+        distance_to_destination = dist;
     }
 
-    public void setDistances(double[] dist){
-        distances = dist;
-    }
+
+//STOPPED HERE - NIHAL
 
     public double[] getDistances(){
         return distances;
@@ -63,7 +66,12 @@ public class Slot{
         assigned_car.car_number = car_number;
         assigned_car.enteredNow();
     }
-    
 
+    //Main
+    public static void main(String[] args) {
 
+        //Main function begins
+
+        //System.out.println("hi");
+    }
 }
