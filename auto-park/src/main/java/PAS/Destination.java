@@ -43,16 +43,40 @@ public class Destination{
         return destination_name;
     }
 
+    public Point getDestCoord(){
+
+        //Function to obtain the coordinates of the destination
+        return destination_coordinates;
+    }
+
     public double getDistance(Point slot_coordinates){
 
         //Function to obtain the distance between a slot and the destination
         return destination_coordinates.distance(slot_coordinates);
     }
 
+    public void inputDestID(int id){
+
+        //Function to input destination ID
+        destination_ID = id;
+    }
+
+    public void inputDestName(String name){
+
+        //Funciton to input the destination Name
+        destination_name = name;
+    }
+
+    public void inputDestCoord(Point coord){
+
+        //Function to input the destinaton coordinates
+        destination_coordinates = coord;
+    }
+    
     public static void main(String[] args){
 
         //Main function of the java program
-        
+
         /*
                             Tester code
 
