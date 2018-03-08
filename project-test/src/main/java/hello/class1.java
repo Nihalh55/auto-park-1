@@ -1,5 +1,7 @@
 package hello;
 
+import jxl.*;
+
 public class class1 {
     private int a;
     public class2 c;
@@ -21,4 +23,3 @@ public class class1 {
         System.out.printf("%d %d", a.get_a(), a.c.get_a());
     }
 }
-
