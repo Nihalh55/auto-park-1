@@ -1,8 +1,8 @@
+package PAS;
 /**
  * The Car class holds all information that the
  * Slot class would need with respect to Cars.
  */
-package PAS;
 
 import java.time.LocalDateTime;
 

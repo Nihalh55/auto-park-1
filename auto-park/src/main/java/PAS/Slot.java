@@ -1,9 +1,9 @@
+package PAS;
 /**
  * The Slot class holds all information pertaining
  * to a parking slot and provides methods to modify
  * this information.
  */
-package PAS;
 
 import java.util.LinkedList;
 import java.util.ArrayList;
