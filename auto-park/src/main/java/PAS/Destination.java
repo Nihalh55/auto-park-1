@@ -1,7 +1,7 @@
 //Destination Class
 //This class decribes the destinations available around the parking Layout
 
-import java.awt.geom.Point2D;                       //Imported this library for the Point class
+import java.awt.Point;                              //Imported this library for the Point class
 
 public class Destination{
 
@@ -48,8 +48,22 @@ public class Destination{
         //Function to obtain the distance between a slot and the destination
         return destination_coordinates.distance(slot_coordinates);
     }
-    //main
+
     public static void main(String[] args){
+
+        //Main function of the java program
+        
+        /*
+                            Tester code
+
+        Point xy = new Point(0,2);
+
+        Destination d1 = new Destination();
+        Destination d2 = new Destination(12 , "McDonalds" , xy);
+
+        System.out.println(d1.getDestID() + d1.getDestName() + d1.getDistance(xy));
+        System.out.println(d2.getDestID() + d2.getDestName() + d2.getDistance(xy));
+        */
 
         System.out.println("hi");
     }
