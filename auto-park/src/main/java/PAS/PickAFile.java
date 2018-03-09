@@ -39,28 +39,7 @@ public class PickAFile{
     public static void main(String[] args) throws FileNotFoundException , java.io.IOException, BiffException{
 
         //Main function begins
-        PickAFile a = new PickAFile();
-        a.chooseFile();
-        try{
-            FileInputStream fs = new FileInputStream(a.selected_file_path);
-            Workbook wb = Workbook.getWorkbook(fs);
-
-            Sheet sh = wb.getSheet(0);
-            String CellGetContent = sh.getCell(0,0).getContents();
-            System.out.println(CellGetContent);
-        }
-        catch(FileNotFoundException ex){
-
-            System.out.println(":(");
-        }
-        catch(java.io.IOException ex){
-
-            System.out.println(":(");
-        }
-        catch(BiffException ex){
-
-            System.out.println(":(");
-        }
+        
         //System.out.println("hi");
     }
 }
