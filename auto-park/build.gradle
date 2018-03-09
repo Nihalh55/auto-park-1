@@ -18,9 +18,11 @@ dependencies {
 jar {
   manifest {
     attributes(
-      'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
-      'Main-Class': 'PAS.Layout'
-    )
+      'Main-Class': 'PAS.PickAFile',
+    	'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+	
+	)
   }
+	    from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) })
 }
 
