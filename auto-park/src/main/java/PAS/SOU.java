@@ -1,18 +1,29 @@
-//SOU class
-//Class describes the sou
+package PAS;
+// SOU class
+import com.openalpr.jni.Alpr;
+import com.openalpr.jni.AlprPlate;
+import com.openalpr.jni.AlprPlateResult;
+import com.openalpr.jni.AlprResults;
 
-public class SOU{
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-    //Main class starts
-    //Data memeber declaration
+import javax.jws.soap.SOAPBinding;
 
-    //Method declaration
-
-    //Main
+import java.nio.file.Files;
+public class SOU
+{
     public static void main(String[] args) {
 
-        //Main function begins
+        String country = "US";
+        String configfile = "../../resources/openalpr/openalpr.conf";
+        String runtimeDataDir = "../../resources/openalpr/runtime_data";
 
-        //System.out.println("hi");
+        Alpr alpr = new Alpr(country, configfile, runtimeDataDir);
+        alpr.setTopN(10);
+        alpr.setDefaultRegion("wa");  
+        
+        System.out.print(alpr.getVersion());
     }
 }
+
