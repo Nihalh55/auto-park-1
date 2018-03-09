@@ -13,6 +13,8 @@ import java.io.FileNotFoundException;
 import java.util.Date;
 import jxl.*;
 
+import java.awt.Point;                              //Imported this library for the Point class
+
 public class Layout{
 
     //Main class begins
@@ -33,7 +35,7 @@ public class Layout{
 
     public void getFile(){
 
-        //Function to choose the excel file having the layput and getting its file path
+        //Function to choose the excel file having the layout and getting its file path
         System.out.println("\nChoose your file...\n");
         PickAFile picker = new PickAFile();
 
@@ -41,9 +43,9 @@ public class Layout{
         layout_path = picker.selected_file_path;
     }
 
-    public void extractInformationFromExcelSheet() throws FileNotFoundException , java.io.IOException, BiffException{
+    public void makeLayoutRectangular() throws FileNotFoundException , java.io.IOException, BiffException{
 
-        //Function to obtain information from the layout present in the excel sheet
+        //Function to encapsulate the parking layout into a rectangular format
         try{
             //Open the excel sheet
             FileInputStream fs = new FileInputStream(layout_path);
@@ -52,9 +54,57 @@ public class Layout{
             //Get the required sheet from the excel sheet
             Sheet sh = wb.getSheet(0);
 
-            //get the cell content
-            String CellGetContent = sh.getCell(0,0).getContents();
-            System.out.println(CellGetContent);
+            //We have to encapsulate the parking layout into a rectangular format
+            //we get the coordinates for the top,bottom,left and right most parts of the layout.
+            //Using this info. we can create a rectangle around the layout
+
+            int flag_left = 0, flag_top = 0;                                //flag to show the top and left coordinates have been found
+            int last_scanned_x , last_scanned_y;                            //last scanned cooridnates with inormation in them
+            int i, j;                                                       //loop variables
+            Point top, bottom, right, left;                                 //coordinates for the top,bottom,left and right most parts of the layout.
+            String cell_content;                                            //holds cell content extracted from excel sheet
+
+            for(i=0;i<100;++i){
+
+                for(j=0;j<100;++j){
+
+                    cell_content = sh.getCell(i,j).getContents();
+                    if((cell_content == "D") || (cell_content == ".") || (cell_content == "P")){
+
+                        if(flag_left == 0){
+
+                            left = new Point(i,j);
+                            flag_left = 1;
+                        }
+                        last_scanned_x = i;
+                        last_scanned_y = j;
+                    }
+                }
+            }
+
+            right = new Point(last_scanned_x,last_scanned_y);
+
+            for(j=0;i<100;++i){
+
+                for(i=0;j<100;++j){
+
+                    cell_content = sh.getCell(i,j).getContents();
+                    if((cell_content == "D") || (cell_content == ".") || (cell_content == "P")){
+
+                        if(flag_top == 0){
+
+                            top = new Point(i,j);
+                            flag_top = 1;
+                        }
+                        last_scanned_x = i;
+                        last_scanned_y = j;
+                    }
+                }
+            }
+
+            bottom = new Point(last_scanned_x,last_scanned_y);
+
+
         }
         catch(FileNotFoundException ex){
             System.out.println(":(");
