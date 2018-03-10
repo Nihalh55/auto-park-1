@@ -59,7 +59,7 @@ public class Layout{
             //we get the coordinates for the top,bottom,left and right most parts of the layout.
 
             int flag_left = 0, flag_top = 0;                                //flag to show the top and left coordinates have been found
-            int last_scanned_x , last_scanned_y;                            //last scanned cooridnates with inormation in them
+            int last_scanned_x = 0, last_scanned_y = 0;                            //last scanned cooridnates with inormation in them
             int i, j;                                                       //loop variables
             String cell_content;                                            //holds cell content extracted from excel sheet
 
@@ -81,7 +81,7 @@ public class Layout{
                 }
             }
 
-            right = new Point(last_scanned_x,last_scanned_y);
+            right = new Point(last_scanned_x, last_scanned_y);
 
             for(j=0;i<100;++i){
 
@@ -115,7 +115,7 @@ public class Layout{
             System.out.println(":(");
         }
 
-        Workbook.close();                                                   //close the sheet to free up memmory
+        //Workbook.close();                                                   //close the sheet to free up memmory
     }
 
     public void extractDestinationsFromLayout() throws FileNotFoundException , java.io.IOException, BiffException{
@@ -138,9 +138,9 @@ public class Layout{
 
             //We have to run through the layout and read all the 'D**'s in the excelsheet. They stand for destinations.
             //We have to identify their coordinates, assign destinaton IDs
-            for(i=top.getY();i<=bottom.getY();++i){
+            for(i = ((int)top.getY()) ;i <= ((int)bottom.getY()) ;++i){
 
-                for(j=left.getX();j<=right.getX();++j){
+                for(j = ((int)left.getX()) ;j <= ((int)right.getX()) ;++j){
 
                     //get cell and contents
                     a = sh.getCell(i,j);
@@ -197,9 +197,9 @@ public class Layout{
 
             //We have to run through the layout and read all the 'P***'s in the excelsheet. They stand for slots.
             //We have to identify their coordinates, assign slot IDs
-            for(i=top.getY();i<=bottom.getY();++i){
+            for(i = ((int)top.getY()) ;i <= ((int)bottom.getY()) ;++i){
 
-                for(j=left.getX();j<=right.getX();++j){
+                for(j = ((int)left.getX()) ;j <= ((int)right.getX()) ;++j){
 
                     //get cell and contents
                     a = sh.getCell(i,j);
@@ -245,17 +245,17 @@ public class Layout{
         for(i=0;i<capacity;++i){
 
             //going through the slot array list and get coordinates
-            Point tempP = new Point();
-            tempP = slot_list[i].getSlotCoord();
+            Point temp_slot_p = new Point();
+            temp_slot_p = slot_list[i].getSlotCoord();
 
             for(j=0;j<number_of_destinations;++j){
 
-                //going through destination array list and get coordinates
-                Point tempD = new Point();
-                tempD = destination_list[j].getDestCoord();
+                //creating temp variable for destination
+                Destination temp_D = new Destination();
+                temp_D = destination_list[j];
 
                 //Find the shortest distance between the slot and destination
-                distances[i] = tempD.getDistance(tempP);
+                distances[i] = temp_D.getDistance(temp_slot_p);
             }
 
             //assign the values to data member of slot Class
@@ -263,10 +263,22 @@ public class Layout{
         }
     }
 
-    
+
     //Main
     public static void main(String[] args){
 
-        System.out.println("hi");
+        //Main Function
+        //Tester code
+
+        Layout layout = new Layout();
+        layout.number_of_destinations = 5;
+        layout.getFile();
+        layout.getLayoutDimensions();
+        layout.extractDestinationsFromLayout();
+        layout.extractSlotsFromLayout();
+
+
+
+        System.out.println(layout.slot_list[1].getSlotID());
     }
 }

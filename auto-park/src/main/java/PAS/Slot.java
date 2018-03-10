@@ -22,13 +22,19 @@ public class Slot{
     private int     offense_count;                                  //holds the number of times an offense has taken place at that slot
     private boolean offense_flag;                                   //holds offense status
     private String  car_number_plate;                               //holds the number plate info. of the car currently occupying the slot
-    private SOU     sou;                                            //holds the info. of the SOU at the slot
+    //private SOU     sou;                                            //holds the info. of the SOU at the slot
     private Car     assigned_car;                                   //holds info. of car assigned by the layout class
     private Car     sou_car;                                        //holds the info. of car returned by the sou class
     private LinkedList<Car>     car_log;                            //holds information of all the cars that visited the slot
     private double  distance_to_destinations[];                       //holds the distances to various destinations present in and around the parking layout
 
     //Method declarations
+
+    public Slot(){
+
+        //Default constructor
+        slot_ID = 0;
+    }
 
     public Slot(int id){
 
@@ -37,19 +43,19 @@ public class Slot{
         offense_flag = false;
     }
 
-    private void souComms(){
+    /*private void souComms(){
 
         //Function to car number plate via the SOU
         while (!sou.detect());
         sou_car.car_number = sou.getCarNumber();
-    }
+    }*/
 
-    private boolean isOffense(){
+    /*private boolean isOffense(){
 
         //Function to determine if offense is taking place
         offense_flag = !(sou_car.car_number == assigned_car.car_number);
         return offense_flag;
-    }
+    }*/
 
     public void inputSlotID(int id){
 
@@ -85,15 +91,11 @@ public class Slot{
 
 //STOPPED HERE - NIHAL
 
-    public double[] getDistances(){
-        return distances;
-    }
-
-    public void assignCar(String car_number){
+    /*public void assignCar(String car_number){
 
         assigned_car.car_number = car_number;
         assigned_car.enteredNow();
-    }
+    }*/
 
     //Main
     public static void main(String[] args) {
