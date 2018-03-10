@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SOU</string>
+    <string name="file_provider_authority" translatable="false">com.autopark.sou.fileprovider</string>
+</resources>
