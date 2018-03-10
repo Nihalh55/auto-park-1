@@ -20,6 +20,7 @@ public class Layout{
     //Main class begins
     //Data members declaration segment
 
+    private Point top, bottom, right, left;                     //coordinates for the top,bottom,left and right most parts of the layout.
     private String      layout_path;                            //holds the path of layout file (Excel)
     private double      average_SOU_accuracy;                   //holds the latest calculated average SOU accuracy
     private int         current_car_count;                      //holds the current number of cars in the layout
@@ -43,9 +44,9 @@ public class Layout{
         layout_path = picker.selected_file_path;
     }
 
-    public void makeLayoutRectangular() throws FileNotFoundException , java.io.IOException, BiffException{
+    public void getLayoutDimensions() throws FileNotFoundException , java.io.IOException, BiffException{
 
-        //Function to encapsulate the parking layout into a rectangular format
+        //Function to obtain layout dimensions
         try{
             //Open the excel sheet
             FileInputStream fs = new FileInputStream(layout_path);
@@ -56,12 +57,10 @@ public class Layout{
 
             //We have to encapsulate the parking layout into a rectangular format
             //we get the coordinates for the top,bottom,left and right most parts of the layout.
-            //Using this info. we can create a rectangle around the layout
 
             int flag_left = 0, flag_top = 0;                                //flag to show the top and left coordinates have been found
             int last_scanned_x , last_scanned_y;                            //last scanned cooridnates with inormation in them
             int i, j;                                                       //loop variables
-            Point top, bottom, right, left;                                 //coordinates for the top,bottom,left and right most parts of the layout.
             String cell_content;                                            //holds cell content extracted from excel sheet
 
             for(i=0;i<100;++i){
@@ -104,6 +103,53 @@ public class Layout{
 
             bottom = new Point(last_scanned_x,last_scanned_y);
 
+        }
+        catch(FileNotFoundException ex){
+            System.out.println(":(");
+        }
+        catch(java.io.IOException ex){
+            System.out.println(":(");
+        }
+        catch(BiffException ex){
+
+            System.out.println(":(");
+        }
+
+        Workbook.close();                                                   //close the sheet to free up memmory
+    }
+
+    public void extractDestinationsFromLayout() throws FileNotFoundException , java.io.IOException, BiffException{
+
+        //Function to extract the destinations from the layout_path
+        try{
+
+            //Open the excel sheet
+            FileInputStream fs = new FileInputStream(layout_path);
+            Workbook wb = Workbook.getWorkbook(fs);
+
+            //Get the required sheet from the excel sheet
+            Sheet sh = wb.getSheet(0);
+
+            int i , j;                                                      //loop variables
+            Cell a;                                                         //object of Cell class to access the cells in the excel sheet
+            String cell_content;                                            //holds the contents of the cell
+            //We have to run through the layout and read all the 'D**'s in the excelsheet. They stand for destinations.
+            //We have to identify their coordinates, assign destinaton IDs
+            for(i=top.getY();i<=bottom.getY();++i){
+
+                for(j=left.getX();j<=right.getX();++j){
+
+                    a = sh.getCell(i,j);
+                    cell_content = a.getContents();
+
+                    if(cell_content.charAt(0) == 'D'){
+
+                        Destination temp = new Destination();
+                        
+                    }
+                }
+            }
+
 
         }
         catch(FileNotFoundException ex){
@@ -117,9 +163,7 @@ public class Layout{
             System.out.println(":(");
         }
 
-
     }
-
 
 
     //Main
