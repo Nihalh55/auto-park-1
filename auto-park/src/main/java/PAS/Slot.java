@@ -8,11 +8,14 @@ package PAS;
 import java.util.LinkedList;
 import java.util.ArrayList;
 
+import java.awt.Point;                              //Imported this library for the Point class
+
 public class Slot{
 
     //Main class begins
     //Data memeber declaration
 
+    private Point   slot_coordinates;                               //holds the coordinates of the slot
     private int     slot_ID;                                        //holds the ID of the slot
     private int     status;                                         //holds the status of the slot , i.e , 2 => car parked & 1 ==> car assigned but not parked & 0 => available &  & -1 => disabled
     private int     car_count;                                      //holds the number of cars that parked at that slot
@@ -23,7 +26,7 @@ public class Slot{
     private Car     assigned_car;                                   //holds info. of car assigned by the layout class
     private Car     sou_car;                                        //holds the info. of car returned by the sou class
     private LinkedList<Car>     car_log;                            //holds information of all the cars that visited the slot
-    private ArrayList<Double>   distance_to_destination;            //holds the distances to various destinations present in and around the parking layout
+    private double  distance_to_destinations[];                       //holds the distances to various destinations present in and around the parking layout
 
     //Method declarations
 
@@ -48,12 +51,37 @@ public class Slot{
         return offense_flag;
     }
 
-    public void setDistancesToDestinations(ArrayList<Double> dist){
+    public void inputSlotID(int id){
 
-        //Function to assign distances to all destinatons from slot
-        distance_to_destination = dist;
+        //Function to input the slot id
+        slot_ID = id;
     }
 
+    public void inputSlotCoord(Point p){
+
+        //Function to input the slot slot_coordinates
+        slot_coordinates = p;
+    }
+
+    public void inputDistances(double[] arr, int n){
+
+        //Function to input the distances to all destinations
+        //n -> number of destinations
+        double[] distance_to_destinations = new double[n];
+        distance_to_destinations = arr;
+    }
+
+    public int getSlotID(){
+
+        //Function to obtain the slot ID
+        return slot_ID;
+    }
+
+    public Point getSlotCoord(){
+
+        //Function to obtain the coordinates of the slots
+        return slot_coordinates;
+    }
 
 //STOPPED HERE - NIHAL
 
@@ -61,8 +89,8 @@ public class Slot{
         return distances;
     }
 
-    public void assignCar(String car_number)
-    {
+    public void assignCar(String car_number){
+
         assigned_car.car_number = car_number;
         assigned_car.enteredNow();
     }

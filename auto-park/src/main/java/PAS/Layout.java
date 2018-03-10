@@ -29,8 +29,8 @@ public class Layout{
     private int         total_number_of_cars;                   //holds the number of cars in total over a timeline
     private int         total_number_of_days;                   //holds the number of days since the start of the implementation f the software on the Layout
     private LinkedList<Integer>     offense_list;               //holds the slot ids which have been marked as 'offense'
-    private ArrayList<Destination>  destination_list;           //holds the information of the available destinations at the Layout
-    private ArrayList<Slot>         slot_list;                  //holds the information of the slots present at the parking layout
+    private Destination  destination_list[];           //holds the information of the available destinations at the Layout
+    private Slot         slot_list[];                  //holds the information of the slots present at the parking layout
 
     //Methods declaration
 
@@ -120,7 +120,7 @@ public class Layout{
 
     public void extractDestinationsFromLayout() throws FileNotFoundException , java.io.IOException, BiffException{
 
-        //Function to extract the destinations from the layout_path
+        //Function to extract the destinations from the layout
         try{
 
             //Open the excel sheet
@@ -133,24 +133,37 @@ public class Layout{
             int i , j;                                                      //loop variables
             Cell a;                                                         //object of Cell class to access the cells in the excel sheet
             String cell_content;                                            //holds the contents of the cell
+
+            Destination[] destination_list = new Destination[number_of_destinations];
+
             //We have to run through the layout and read all the 'D**'s in the excelsheet. They stand for destinations.
             //We have to identify their coordinates, assign destinaton IDs
             for(i=top.getY();i<=bottom.getY();++i){
 
                 for(j=left.getX();j<=right.getX();++j){
 
+                    //get cell and contents
                     a = sh.getCell(i,j);
                     cell_content = a.getContents();
 
+                    //condition check.
                     if(cell_content.charAt(0) == 'D'){
 
+                        //destination found -> create an object
                         Destination temp = new Destination();
-                        
+                        Point p = new Point(i,j);
+
+                        //assign id and coordinates
+                        String sub_string = cell_content.substring(1,2);
+                        temp.inputDestID(Integer.parseInt(sub_string));
+                        temp.inputDestCoord(p);
+
+                        //add to destination list
+                        destination_list[temp.getDestID()] = temp;
                     }
                 }
             }
-
-
+            //get names for dest
         }
         catch(FileNotFoundException ex){
             System.out.println(":(");
@@ -162,10 +175,95 @@ public class Layout{
 
             System.out.println(":(");
         }
-
     }
 
+    public void extractSlotsFromLayout() throws FileNotFoundException , java.io.IOException, BiffException{
 
+        //Function to extract the slots from the layout
+        try{
+
+            //Open the excel sheet
+            FileInputStream fs = new FileInputStream(layout_path);
+            Workbook wb = Workbook.getWorkbook(fs);
+
+            //Get the required sheet from the excel sheet
+            Sheet sh = wb.getSheet(0);
+
+            int i , j;                                                      //loop variables
+            Cell a;                                                         //object of Cell class to access the cells in the excel sheet
+            String cell_content;                                            //holds the contents of the cell
+
+            Slot[] slot_list = new Slot[capacity];
+
+            //We have to run through the layout and read all the 'P***'s in the excelsheet. They stand for slots.
+            //We have to identify their coordinates, assign slot IDs
+            for(i=top.getY();i<=bottom.getY();++i){
+
+                for(j=left.getX();j<=right.getX();++j){
+
+                    //get cell and contents
+                    a = sh.getCell(i,j);
+                    cell_content = a.getContents();
+
+                    //condition check.
+                    if(cell_content.charAt(0) == 'P'){
+
+                        //slot found -> create an object
+                        Slot temp = new Slot();
+                        Point p = new Point(i,j);
+
+                        //assign id and coordinates
+                        String sub_string = cell_content.substring(1,3);
+                        temp.inputSlotID(Integer.parseInt(sub_string));
+                        temp.inputSlotCoord(p);
+
+                        //add to destination list
+                        slot_list[temp.getSlotID()] = temp;
+                    }
+                }
+            }
+            //slot constructor
+        }
+        catch(FileNotFoundException ex){
+            System.out.println(":(");
+        }
+        catch(java.io.IOException ex){
+            System.out.println(":(");
+        }
+        catch(BiffException ex){
+
+            System.out.println(":(");
+        }
+    }
+
+    public void assignDistances(){
+
+        //Function to assign distances to all slots to all destination_list
+        double[] distances = new double[number_of_destinations];                //holds the distances
+        int i , j;                                                              //loop variables
+
+        for(i=0;i<capacity;++i){
+
+            //going through the slot array list and get coordinates
+            Point tempP = new Point();
+            tempP = slot_list[i].getSlotCoord();
+
+            for(j=0;j<number_of_destinations;++j){
+
+                //going through destination array list and get coordinates
+                Point tempD = new Point();
+                tempD = destination_list[j].getDestCoord();
+
+                //Find the shortest distance between the slot and destination
+                distances[i] = tempD.getDistance(tempP);
+            }
+
+            //assign the values to data member of slot Class
+            slot_list[i].inputDistances(distances,number_of_destinations);
+        }
+    }
+
+    
     //Main
     public static void main(String[] args){
 
