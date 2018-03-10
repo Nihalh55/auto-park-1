@@ -38,7 +38,7 @@ public class Slot{
 
         //Function to car number plate via the SOU
         while (!sou.detect());
-        sou_car.car_number = sou.getCarNumber();
+        sou_car.car_number = sou.getNumberPlate();
     }
 
     private boolean isOffense(){

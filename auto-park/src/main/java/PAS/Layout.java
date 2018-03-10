@@ -27,7 +27,7 @@ public class Layout{
     private int         total_number_of_days;                   //holds the number of days since the start of the implementation f the software on the Layout
     private LinkedList<Integer>     offense_list;               //holds the slot ids which have been marked as 'offense'
     private ArrayList<Destination>  destination_list;           //holds the information of the available destinations at the Layout
-    private ArrayList<Slot>         slot_list;                  //holds the information of the slots present at the parking layout
+    // private ArrayList<Slot>         slot_list;                  //holds the information of the slots present at the parking layout
 
     //Methods declaration
 
