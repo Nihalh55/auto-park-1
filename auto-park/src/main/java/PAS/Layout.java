@@ -14,6 +14,7 @@ import java.util.Date;
 import jxl.*;
 
 import java.awt.Point;                              //Imported this library for the Point class
+import java.util.Collections;                       //Imported for Collection class
 
 public class Layout{
 
@@ -55,6 +56,10 @@ public class Layout{
     public void getLayoutDimensions() throws FileNotFoundException , java.io.IOException, BiffException{
 
         //Function to obtain layout dimensions
+
+        ArrayList<Integer> row_bounds = new ArrayList<Integer>();
+        ArrayList<Integer> col_bounds = new ArrayList<Integer>();
+
         //Open the excel sheet
         FileInputStream fs = new FileInputStream(layout_path);
         Workbook wb = Workbook.getWorkbook(fs);
@@ -62,38 +67,52 @@ public class Layout{
         //Get the required sheet from the excel sheet
         Sheet sh = wb.getSheet(0);
 
-        int i=0;                                                                  //loop variable
-        char cell_content;                                                      //holds cell content extracted from excel sheet
+        int i = 0 , j = 0;                                                      //loop variables                                                     //holds cell content extracted from excel sheet
 
         //To find the bounds using try{..} catch{..}
+        //We have to try and catch it for every row and column and then take max of it
         //To find row bound
-        try{
-                for(i=0;i<100;++i){
+        for(i=0;i<50;++i){
 
-                    //Going through the rows
-                    cell_content = sh.getCell(0,i).getContents().charAt(0);
-            }
-        }
-        catch(Exception e){
+            try{
+                    for(j=0;j<50;++j){
+
+                        //Going through the rows
+                        Cell cell = sh.getCell(i,j);
+                    }
+                }
+            catch(Exception e){
 
             //bound hit
-            row_bound = i;
+            row_bounds.add(j);
+            }
         }
 
         //To find column bond
-        try{
-                for(i=0;i<100;++i){
+        for(j=0;j<50;++j){
 
-                    //Going through the rows
-                    cell_content = sh.getCell(i,0).getContents().charAt(0);
-            }
-        }
-        catch(Exception e){
+            try{
+                    for(i=0;i<50;++i){
+
+                        //Going through the columns
+                        Cell cell = sh.getCell(i,j);
+                    }
+                }
+            catch(Exception e){
 
             //bound hit
-            col_bound = i;
+            col_bounds.add(i);
+            }
         }
-        //System.out.println(row_bound + " " + col_bound);
+
+        //Now we have to find the maximum in both
+        Integer R = Collections.max(row_bounds);
+        Integer C = Collections.max(col_bounds);
+
+        row_bound = R.intValue();
+        col_bound = C.intValue();
+
+        //System.out.println(row_bound + " " + col_bound + " " + col_bounds.get(5));
 
         /*
             Problematic code
@@ -151,6 +170,16 @@ public class Layout{
         //Workbook.close();                                                   //close the sheet to free up memmory
     }
 
+    /*public void makeRectangularLayout() throws FileNotFoundException , java.io.IOException, BiffException{
+
+        //Function to make the layout rectangular by filling out empty spots with *s and xs
+        //If its along the vorder then *
+        //Else an x
+
+
+
+    }*/
+
     public void getNumberOfDestinationsAndSlots() throws FileNotFoundException , java.io.IOException, BiffException{
 
         //Function to get the number of destinations and slots
@@ -180,7 +209,7 @@ public class Layout{
             }
         }
 
-        System.out.println(number_of_destinations + " " + capacity);
+        //System.out.println(number_of_destinations + " " + capacity);
     }
 
     public void extractDestinationsFromLayout() throws FileNotFoundException , java.io.IOException, BiffException{
@@ -311,7 +340,7 @@ public class Layout{
 
         try {
             layout.getLayoutDimensions();
-            layout.getNumberOfDestinationsAndSlots();
+            //layout.getNumberOfDestinationsAndSlots();
             //layout.extractDestinationsFromLayout();
             //layout.extractSlotsFromLayout();
         }
