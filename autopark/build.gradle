@@ -1,0 +1,39 @@
+group 'com.autopark'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile fileTree(dir: 'libs', include: ['.jar','.so'])
+    compile files('libs/jxl.jar')
+}
+
+jar {
+<<<<<<< HEAD:auto-park/build.gradle
+  manifest {
+    attributes(
+      'Main-Class': 'Test',
+    	'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+	  )
+  }
+  from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) })
+}
+=======
+    manifest {
+        attributes(
+                'Main-Class': 'PAS.Layout',
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+        )
+    }
+    from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) })
+}
+>>>>>>> f319731b6499d6d3e768c8851b3938534b9513f0:autopark/build.gradle

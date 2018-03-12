@@ -3,19 +3,25 @@ package com.autopark.sou;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,12 +46,16 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    private String id;
     private static final int REQUEST_IMAGE = 100;
-    private static final int STORAGE=1;
+    private static final int PERMISSIONS = 1;
     private String ANDROID_DATA_DIR;
     private static File destination;
     private TextView resultTextView;
     private ImageView imageView;
+    private String serverAddress;
+    private String port;
+    SharedPreferences settings = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +73,35 @@ public class MainActivity extends AppCompatActivity {
         resultTextView = (TextView) findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);
 
-        resultTextView.setText("Press the Button above to start.");
+        resultTextView.setText("Press floating button to start");
+
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        // ITS CRASHING HERE
+        settings = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+
+        id = settings.getString(SettingsActivity.KEY_SLOT_ID, "1");
+        port = settings.getString(SettingsActivity.KEY_SERVER_PORT, "5050");
+        serverAddress = settings.getString(SettingsActivity.KEY_SERVER_ADDR, "192.168.12.1");
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.settings:
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.exit:
+                finish();
+                return true;
+        }
+        return (super.onOptionsItemSelected(item));
     }
 
     @Override
@@ -101,6 +139,10 @@ public class MainActivity extends AppCompatActivity {
                                             // Convert processing time to seconds and trim to two decimal places
                                             + "\nProcessing time: " + String.format("%.2f", ((results.getProcessingTimeMs() / 1000.0) % 60)) + " seconds");
                                     resultTextView.setText(prettyResult);
+
+                                    Client myClient = new Client(serverAddress, Integer.parseInt(port), String.valueOf(id) + ":" + results.getResults().get(0).getPlate()  , MainActivity.this);
+                                    myClient.execute();
+
                                 }
                             }
                         });
@@ -127,11 +169,23 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.CAMERA);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.INTERNET);
+        }
+
         if (!permissions.isEmpty()) {
-            Toast.makeText(this, "Storage access needed to manage the picture.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Permissions required", Toast.LENGTH_LONG).show();
             String[] params = permissions.toArray(new String[permissions.size()]);
-            ActivityCompat.requestPermissions(this, params, STORAGE);
-        } else { // We already have permissions, so handle as normal
+            ActivityCompat.requestPermissions(this, params, PERMISSIONS);
+        }
+
+        else { // We already have permissions, so handle as normal
             takePicture();
         }
     }
@@ -155,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
         destination = new File(folder, name + ".jpg");
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(MainActivity.this, getString(R.string.file_provider_authority),destination));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(MainActivity.this, getString(R.string.file_provider_authority), destination));
         startActivityForResult(intent, REQUEST_IMAGE);
     }
 
@@ -165,5 +219,11 @@ public class MainActivity extends AppCompatActivity {
         if (destination != null) {// Picasso does not seem to have an issue with a null value, but to be safe
             Picasso.with(MainActivity.this).load(destination).fit().centerCrop().into(imageView);
         }
+        settings = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+
+        id = settings.getString (SettingsActivity.KEY_SLOT_ID, "1");
+        port = settings.getString(SettingsActivity.KEY_SERVER_PORT, "5050");
+        serverAddress = settings.getString(SettingsActivity.KEY_SERVER_ADDR, "192.168.12.1");
+
     }
 }
