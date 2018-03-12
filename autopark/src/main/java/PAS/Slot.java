@@ -25,11 +25,8 @@ public class Slot extends Thread{
     private Car                 assigned_car;                                   //holds info. of car assigned by the layout class
     private Car                 sou_car;                                        //holds the info. of car returned by the sou class
     private LinkedList<Car>     car_log;                            //holds information of all the cars that visited the slot
-<<<<<<< HEAD
-    private double              distance_to_destinations[];                       //holds the distances to various destinations present in and around the parking layout
-=======
+
     private double[]  distance_to_destinations;                       //holds the distances to various destinations present in and around the parking layout
->>>>>>> 83676fc928624073c0ef546cff3385020f9626ef
 
     //Method declarations
 
