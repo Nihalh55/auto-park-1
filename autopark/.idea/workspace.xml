@@ -2,48 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b6a0c8fe-6f61-48fd-a6b0-c3e3deb7e128" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileChanges/last-build.bin" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileContent/annotation-processors.bin" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileContent/fileContent.lock" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.bin" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.lock" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileHashes/resourceHashesCache.bin" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/fileSnapshots.bin" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.bin" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.lock" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/built.bin" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties.lock" afterPath="" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/PAS/Car.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/PAS/Destination.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/PAS/Layout.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/PAS/PickAFile.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/PAS/SOU.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/PAS/Server.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/PAS/Slot.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/PAS/Car.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/PAS/Destination.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/PAS/Layout.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/PAS/PickAFile.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/PAS/Slot.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/PAS/package-frame.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/PAS/package-summary.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/PAS/package-tree.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/allclasses-frame.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/allclasses-noframe.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/constant-values.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/deprecated-list.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/help-doc.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/index-all.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/index.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/overview-tree.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/package-list" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/script.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/stylesheet.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/libs/autopark-1.0-SNAPSHOT.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/jar/MANIFEST.MF" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/javadoc/javadoc.options" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="/run/media/gurupunskill/SharedSpace/Work/sem-4/auto-park/autopark/.gradle/" />
@@ -104,7 +63,7 @@
         <entry file="file:///run/media/gurupunskill/SharedSpace/Work/sem-4/auto-park/autopark/src/main/java/PAS/Car.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-18">
-              <caret line="29" column="41" lean-forward="true" selection-start-line="29" selection-start-column="41" selection-end-line="29" selection-end-column="41" />
+              <caret line="29" column="41" lean-forward="false" selection-start-line="29" selection-start-column="41" selection-end-line="29" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -114,7 +73,7 @@
         <entry file="file:///run/media/gurupunskill/SharedSpace/Work/sem-4/auto-park/autopark/src/main/java/PAS/Slot.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
-              <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+              <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -139,7 +98,7 @@
         <entry file="file:///run/media/gurupunskill/SharedSpace/Work/sem-4/auto-park/autopark/src/main/java/PAS/Server.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="360">
-              <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1076#1077#0" expanded="true" />
@@ -569,17 +528,6 @@
             <path>
               <item name="autopark" type="b2602c69:ProjectViewProjectNode" />
               <item name="autopark" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="autopark" type="b2602c69:ProjectViewProjectNode" />
-              <item name="autopark" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="build" type="462c0819:PsiDirectoryNode" />
-              <item name="libs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="autopark" type="b2602c69:ProjectViewProjectNode" />
-              <item name="autopark" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -776,7 +724,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1032" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -790,7 +737,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.330076" sideWeight="0.49791667" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -864,7 +811,7 @@
     <entry file="file:///run/media/gurupunskill/SharedSpace/Work/sem-4/auto-park/autopark/src/main/java/PAS/Car.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-18">
-          <caret line="29" column="41" lean-forward="true" selection-start-line="29" selection-start-column="41" selection-end-line="29" selection-end-column="41" />
+          <caret line="29" column="41" lean-forward="false" selection-start-line="29" selection-start-column="41" selection-end-line="29" selection-end-column="41" />
           <folding />
         </state>
       </provider>
@@ -883,7 +830,7 @@
     <entry file="file:///run/media/gurupunskill/SharedSpace/Work/sem-4/auto-park/autopark/src/main/java/PAS/Server.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
-          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1076#1077#0" expanded="true" />
@@ -905,7 +852,7 @@
     <entry file="file:///run/media/gurupunskill/SharedSpace/Work/sem-4/auto-park/autopark/src/main/java/PAS/Slot.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
-          <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

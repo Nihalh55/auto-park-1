@@ -20,9 +20,14 @@ dependencies {
 jar {
     manifest {
         attributes(
+<<<<<<< HEAD
                 'Main-Class': 'PAS.SOU',
+=======
+                'Main-Class': 'PAS.InputLayout',
+>>>>>>> 83676fc928624073c0ef546cff3385020f9626ef
                 'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
         )
     }
     from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) })
 }
+

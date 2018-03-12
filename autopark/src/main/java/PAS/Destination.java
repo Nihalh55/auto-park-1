@@ -27,8 +27,8 @@ public class Destination{
 
         //Constructor class to intialise the data men=mbers to certain given values in the parameter
         destination_ID = id;
-        destination_coordinates = new Point();
-        destination_coordinates.setLocation(coord);
+        destination_coordinates = new Point(coord);
+    //    destination_coordinates.setLocation(coord);
     }
 
     public int getDestID(){
