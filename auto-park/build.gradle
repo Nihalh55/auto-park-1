@@ -20,7 +20,7 @@ dependencies {
 jar {
   manifest {
     attributes(
-      'Main-Class': 'PAS.Layout',
+      'Main-Class': 'Test',
     	'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
 	  )
   }
