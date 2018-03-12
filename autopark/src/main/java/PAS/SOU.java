@@ -1,12 +1,56 @@
 package PAS;
+
+import java.io.IOException;
+
 /**
- * The SOU class would communicate with the SOU app
+ * The SOU class communicates with the SOU android app
  * running on mobile hardware
- * It would need to get the number plate retrned by
- * the SOU App.
+ * It gets the number plate returned by the SOU App.
  */
 
-class SOU{
-    int id;
-    String CarNumber;
+public class SOU{
+
+    private int    id;                     // Should be the same as the app ID
+    private int    port;
+    private String car_number_plate;    // Stores the value returned by the app
+
+    public SOU(int ID, int Port){
+        id = ID;
+        port = Port;
+    }
+
+    public void talkToApp() throws IOException {
+        Server sou_app = new Server(port);
+        String message = sou_app.getMessage();
+        String[] arr = message.split(":",2);
+
+        int id_check = Integer.parseInt(arr[0]);
+        if (id != id_check) {
+            throw new IOException("App ID mismatch");
+        }
+        else {
+            car_number_plate = arr[1];
+        }
+    }
+
+    public String getNumberPlate()
+    {
+        return car_number_plate;
+    }
+
+    public static void main(String[] args) {
+
+        SOU test = new SOU(23, 5050);
+        try {
+            test.talkToApp();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            System.out.print(test.getNumberPlate());
+        }
+    }
+
 }
+

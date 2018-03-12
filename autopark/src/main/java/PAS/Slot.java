@@ -10,37 +10,50 @@ import java.util.ArrayList;
 
 import java.awt.Point;                              //Imported this library for the Point class
 
-public class Slot{
+public class Slot extends Thread{
 
     //Main class begins
     //Data memeber declaration
 
-    private Point   slot_coordinates;                               //holds the coordinates of the slot
-    private int     slot_ID;                                        //holds the ID of the slot
-    private int     status;                                         //holds the status of the slot , i.e , 2 => car parked & 1 ==> car assigned but not parked & 0 => available &  & -1 => disabled
-    private int     car_count;                                      //holds the number of cars that parked at that slot
-    private int     offense_count;                                  //holds the number of times an offense has taken place at that slot
-    private boolean offense_flag;                                   //holds offense status
-    private String  car_number_plate;                               //holds the number plate info. of the car currently occupying the slot
-    //private SOU     sou;                                            //holds the info. of the SOU at the slot
-    private Car     assigned_car;                                   //holds info. of car assigned by the layout class
-    private Car     sou_car;                                        //holds the info. of car returned by the sou class
+    private Point               slot_coordinates;                               //holds the coordinates of the slot
+    private int                 slot_ID;                                        //holds the ID of the slot
+    private int                 status;                                         //holds the status of the slot , i.e , 2 => car parked & 1 ==> car assigned but not parked & 0 => available &  & -1 => disabled
+    private int                 car_count;                                      //holds the number of cars that parked at that slot
+    private int                 offense_count;                                  //holds the number of times an offense has taken place at that slot
+    private boolean             offense_flag;                                   //holds offense status
+    private SOU                 sou;                                            //holds the info. of the SOU at the slot
+    private Car                 assigned_car;                                   //holds info. of car assigned by the layout class
+    private Car                 sou_car;                                        //holds the info. of car returned by the sou class
     private LinkedList<Car>     car_log;                            //holds information of all the cars that visited the slot
-    private double  distance_to_destinations[];                       //holds the distances to various destinations present in and around the parking layout
+    private double              distance_to_destinations[];                       //holds the distances to various destinations present in and around the parking layout
 
     //Method declarations
 
     public Slot(){
 
         //Default constructor
-        slot_ID = 0;
+        slot_ID         = 0;
+        status          = 0;
+        car_count       = 0;
+        offense_count   = 0;
+        offense_flag    = false;
+        sou_car         = new Car();
+        assigned_car    = new Car();
+
     }
 
     public Slot(int id){
 
         //Constructor to intialise values to data members
-        slot_ID = id;
-        offense_flag = false;
+        slot_ID         = id;
+        offense_flag    = false;
+        slot_ID         = 0;
+        status          = 0;
+        car_count       = 0;
+        offense_count   = 0;
+        sou_car         = new Car();
+        assigned_car    = new Car();
+        sou             = new SOU(slot_ID, 5050);
     }
 
     /*private boolean isOffense(){
@@ -66,7 +79,7 @@ public class Slot{
 
         //Function to input the distances to all destinations
         //n -> number of destinations
-        double[] distance_to_destinations = new double[n];
+        distance_to_destinations = new double[n];
         distance_to_destinations = arr;
     }
 
@@ -82,13 +95,14 @@ public class Slot{
         return slot_coordinates;
     }
 
-//STOPPED HERE - NIHAL
 
-    /*public void assignCar(String car_number){
+    public void assignCar(String car_number){
 
-        assigned_car.car_number = car_number;
+        assigned_car.inputNumberPlate(car_number);
         assigned_car.enteredNow();
-    }*/
+
+
+    }
 
     //Main
     public static void main(String[] args) {

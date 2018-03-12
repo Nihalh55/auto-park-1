@@ -11,9 +11,9 @@ public class Car{
     //Main class begins
     //Data memeber declaration
 
-    String car_number_plate;                                        //holds the number plate info. of the car currently occupying the slot
-    private LocalDateTime entry_time;                                //holds the entry time of the car
-    private LocalDateTime exit_time;                                 //holds the exit time of the car
+    private String          car_number_plate;                                        //holds the number plate info. of the car currently occupying the slot
+    private LocalDateTime   entry_time;                                //holds the entry time of the car
+    private LocalDateTime   exit_time;                                 //holds the exit time of the car
     // Image?
 
     //Method declarations
