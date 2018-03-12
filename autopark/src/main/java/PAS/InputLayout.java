@@ -143,7 +143,6 @@ public class InputLayout{
 
         //After input is done we have to extract the information
         frame.addWindowListener(new WindowAdapter() {
-            //I skipped unused callbacks for readability
 
             @Override
             public void windowClosing(WindowEvent e) {
