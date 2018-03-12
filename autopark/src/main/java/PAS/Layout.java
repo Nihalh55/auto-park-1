@@ -4,7 +4,7 @@ package PAS;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-
+/*
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -17,6 +17,16 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableCell;
 import jxl.write.Label;
 import jxl.*;
+*/
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import java.awt.Point;                              //Imported this library for the Point class
 import java.util.Collections;                       //Imported for Collection class
@@ -26,18 +36,19 @@ public class Layout{
     //Main class begins
     //Data members declaration segment
 
-    private String      layout_path;                            //holds the path of layout file (Excel)
+    //private String      layout_path;                            //holds the path of layout file (Excel)
     private double      average_SOU_accuracy;                   //holds the latest calculated average SOU accuracy
-    private int         row_bound;                              //holds the row bound for the layout
-    private int         col_bound;                               //holds the column bound for the layout
+    //private int         row_bound;                              //holds the row bound for the layout
+    //private int         col_bound;                               //holds the column bound for the layout
     private int         current_car_count;                      //holds the current number of cars in the layout
-    private int         capacity;                               //holds the capacity of the layout,i.e, tells us the total number of slots
+    public int         capacity;                               //holds the capacity of the layout,i.e, tells us the total number of slots
     private int         number_of_destinations;                 //holds the number of destinations present near the layput available for console menu
     private int         total_number_of_cars;                   //holds the number of cars in total over a timeline
     private int         total_number_of_days;                   //holds the number of days since the start of the implementation f the software on the Layout
     private LinkedList<Integer>     offense_list;               //holds the slot ids which have been marked as 'offense'
-    private Destination  destination_list[];                    //holds the information of the available destinations at the Layout
-    private Slot         slot_list[];                           //holds the information of the slots present at the parking layout
+    private Destination[] destination_list;                    //holds the information of the available destinations at the Layout
+    private Slot[]        slot_list;                           //holds the information of the slots present at the parking layout
+    //private InputLayout access_to_layout_grid;                                  //holds the layout grid info from the InputLayout class
 
     //Methods declaration
 
@@ -46,11 +57,9 @@ public class Layout{
         //Default constructor
         number_of_destinations = 0;
         capacity = 0;
-        row_bound = 50;
-        col_bound = 50;
     }
 
-    public void getFile(){
+    /*public void getFile(){
 
         //Function to choose the excel file having the layout and getting its file path
         System.out.println("\nChoose your file...\n");
@@ -58,9 +67,9 @@ public class Layout{
 
         picker.chooseFile();
         layout_path = picker.selected_file_path;
-    }
+    }*/
 
-    public void getLayoutDimensions() throws FileNotFoundException , java.io.IOException, BiffException{
+    /*public void getLayoutDimensions() throws FileNotFoundException , java.io.IOException, BiffException{
 
         //Function to obtain layout dimensions
 
@@ -172,14 +181,14 @@ public class Layout{
 
         bottom = new Point(last_scanned_x,last_scanned_y);
 
-        */
+
 
         //System.out.println(number_of_destinations);
 
         //Workbook.close();                                                   //close the sheet to free up memmory
-    }
+    }*/
 
-    public void makeRectangularLayout() throws FileNotFoundException , java.io.IOException, BiffException , WriteException{
+    /*public void makeRectangularLayout() throws FileNotFoundException , java.io.IOException, BiffException , WriteException{
 
         //Function to make the layout rectangular by filling out empty spots with *s and xs
         //If its along the vorder then *
@@ -253,12 +262,32 @@ public class Layout{
 
         copy.write();
         copy.close();
-    }
+    }*/
 
-    public void getNumberOfDestinationsAndSlots() throws FileNotFoundException , java.io.IOException, BiffException{
+    public void getNumberOfDestinationsAndSlots(int rows, int cols, Object[][] data){
 
         //Function to get the number of destinations and slots
 
+        //Get the dataEntries and put it intp a temp array
+        int r = rows;
+        int c = cols;
+        int i = 0 , j = 0;                                                      //loop variable
+
+        //Go through the 2D array and extract the information
+        for(i=0;i<r;++i){
+
+            for(j=0;j<c;++j){
+
+                if(data[i][j] == "P")
+                    capacity++;
+                else if(data[i][j] == "D")
+                    number_of_destinations++;
+
+                //System.out.print(data[i][j]);
+            }
+            //System.out.println("hi");
+        }
+        /*
         //Open the excel sheet
         FileInputStream fs = new FileInputStream(layout_path);
         Workbook wb = Workbook.getWorkbook(fs);
@@ -267,7 +296,7 @@ public class Layout{
         Sheet sh = wb.getSheet(0);
 
         int i,j;                                                                //loop variable
-        char cell_content;                                                      //holds cell content extracted from excel sheet
+        c)har cell_content;                                                      //holds cell content extracted from excel sheet
         Cell a;                                                                 //holds cell information as an object
 
         for(i=0;i<row_bound;++i){
@@ -284,94 +313,64 @@ public class Layout{
                     capacity++;
             }
         }
-
-        System.out.println(number_of_destinations + " " + capacity);
+        */
+        //System.out.println(number_of_destinations + " " + capacity);
     }
 
-    public void extractDestinationsFromLayout() throws FileNotFoundException , java.io.IOException, BiffException{
+    public void extractDestinationsFromLayout(int rows, int cols, Object[][] data){
 
         //Function to get the destinations from the layout
 
-        //Open the excel sheet
-        FileInputStream fs = new FileInputStream(layout_path);
-        Workbook wb = Workbook.getWorkbook(fs);
+        int i =0, j=0 , k=0;                                                  //loop variables
+        destination_list = new Destination[number_of_destinations];
 
-        //Get the required sheet from the excel sheet
-        Sheet sh = wb.getSheet(0);
-
-        int i =0, j=0;                                                  //loop variables
-
-        Destination[] destination_list = new Destination[number_of_destinations];
-
-        //We have to run through the layout and read all the 'D**'s in the excelsheet. They stand for destinations.
+        //We have to run through the layout and read all the 'D**'s in the grid. They stand for destinations.
         //We have to identify their coordinates, assign destinaton IDs
-        for(i=0;i<row_bound;++i){
+        for(i=0;i<rows;++i){
 
-            for(j = 0;j<col_bound;++j){
-
-                //get cell and contents
-                Cell a = sh.getCell(i,j);
-                String cell_content = a.getContents();
+            for(j=0;j<cols;++j){
 
                 //condition check.
-                if(cell_content.charAt(0) == 'D'){
-
-                    String sub_string = cell_content.substring(1,3);
-                    int id = Integer.parseInt(sub_string,10);
-                    //System.out.println(id);
+                if(data[i][j] == "D"){
 
                     //add to destination list
                     //destination found -> create an object
                     Point p = new Point(i,j);
 
-                    destination_list[id-1] = new Destination();
-                    destination_list[id-1].inputDestID(id);
-                    destination_list[id-1].inputDestCoord(p);
+                    destination_list[k] = new Destination();
+                    destination_list[k].inputDestID(k+1);
+                    destination_list[k].inputDestCoord(p);
+                    k = k +1;
                 }
             }
         }
         //get names for dest
     }
 
-    public void extractSlotsFromLayout() throws FileNotFoundException , java.io.IOException, BiffException{
+    public void extractSlotsFromLayout(int rows, int cols, Object[][] data){
 
-        //Function to extract the slots from the layout
+        //Function to extract the slots from the grid
 
-        //Open the excel sheet
-        FileInputStream fs = new FileInputStream(layout_path);
-        Workbook wb = Workbook.getWorkbook(fs);
+        int i = 0, j = 0, k = 0;                                                      //loop variables
+        slot_list = new Slot[capacity];
 
-        //Get the required sheet from the excel sheet
-        Sheet sh = wb.getSheet(0);
-
-        int i , j;                                                      //loop variables
-
-        Slot[] slot_list = new Slot[capacity];
-
-        //We have to run through the layout and read all the 'P***'s in the excelsheet. They stand for slots.
+        //We have to run through the layout and read all the 'P***'s in the grid. They stand for slots.
         //We have to identify their coordinates, assign slot IDs
-        for(i=0;i<row_bound;++i){
+        for(i=0;i<rows;++i){
 
-            for(j=0;j<col_bound;++j){
-
-                //get cell and contents
-                Cell a = sh.getCell(i,j);
-                String cell_content = a.getContents();
+            for(j=0;j<cols;++j){
 
                 //condition check.
-                if(cell_content.charAt(0) == 'P'){
-
-                    String sub_string = cell_content.substring(1,4);
-                    int id = Integer.parseInt(sub_string);
-                    //System.out.println(id);
+                if(data[i][j] == "P"){
 
                     //slot found -> create an object
                     //assign id and coordinates
                     Point p = new Point(i,j);
 
-                    slot_list[id-1] = new Slot();
-                    slot_list[id-1].inputSlotID(id);
-                    slot_list[id-1].inputSlotCoord(p);
+                    slot_list[k] = new Slot();
+                    slot_list[k].inputSlotID(k+1);
+                    slot_list[k].inputSlotCoord(p);
+                    k = k + 1;
                 }
             }
         }
@@ -381,22 +380,24 @@ public class Layout{
 
         //Function to assign distances to all slots to all destination_list
         double[] distances = new double[number_of_destinations];                //holds the distances
-        int i , j;                                                              //loop variables
+        int i=0, j=0;                                                              //loop variables
 
         for(i=0;i<capacity;++i){
 
             //going through the slot array list and get coordinates
-            Point temp_slot_p = new Point();
-            temp_slot_p = slot_list[i].getSlotCoord();
+            Point temp_slot_p = slot_list[i].getSlotCoord();
+            System.out.println(temp_slot_p.getX() + " " + temp_slot_p.getY());
 
             for(j=0;j<number_of_destinations;++j){
 
                 //creating temp variable for destination
-                Destination temp_D = new Destination();
-                temp_D = destination_list[j];
+                Destination temp_D = destination_list[j];
+
+                System.out.println(temp_D.getDestCoord().getX() + " " + temp_D.getDestCoord().getY());
 
                 //Find the shortest distance between the slot and destination
-                distances[i] = temp_D.getDistance(temp_slot_p);
+                distances[j] = temp_D.getDistance(temp_slot_p);
+
             }
 
             //assign the values to data member of slot Class
@@ -404,27 +405,20 @@ public class Layout{
         }
     }
 
+    public void extractInformation(int r, int c, Object[][] data){
+
+        //Function to get information from grid layout
+        getNumberOfDestinationsAndSlots(r,c,data);
+        extractDestinationsFromLayout(r,c,data);
+        extractSlotsFromLayout(r,c,data);
+        assignDistances();
+    }
+
     //Main
     public static void main(String[] args) {
 
         //Main Function
         //Tester code
-
-        Layout layout = new Layout();
-        //layout.number_of_destinations = 5;
-        layout.getFile();
-
-        try {
-            //layout.getLayoutDimensions();
-            //layout.makeRectangularLayout();
-            layout.getNumberOfDestinationsAndSlots();
-            //layout.extractDestinationsFromLayout();
-            //layout.extractSlotsFromLayout();
-        }
-        catch (Exception e) {
-            System.out.print(e);
-        }
-
-        System.out.println("Hi" + layout.layout_path);
+        //System.out.println("Hi");
     }
 }

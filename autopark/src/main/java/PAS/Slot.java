@@ -26,7 +26,7 @@ public class Slot{
     private Car     assigned_car;                                   //holds info. of car assigned by the layout class
     private Car     sou_car;                                        //holds the info. of car returned by the sou class
     private LinkedList<Car>     car_log;                            //holds information of all the cars that visited the slot
-    private double  distance_to_destinations[];                       //holds the distances to various destinations present in and around the parking layout
+    private double[]  distance_to_destinations;                       //holds the distances to various destinations present in and around the parking layout
 
     //Method declarations
 
@@ -66,7 +66,7 @@ public class Slot{
 
         //Function to input the distances to all destinations
         //n -> number of destinations
-        double[] distance_to_destinations = new double[n];
+        distance_to_destinations = new double[n];
         distance_to_destinations = arr;
     }
 

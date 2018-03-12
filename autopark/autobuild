@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
 ./gradlew clean build
-java -jar build/libs/auto-park-1.0-SNAPSHOT.jar
+java -jar build/libs/autopark-1.0-SNAPSHOT.jar

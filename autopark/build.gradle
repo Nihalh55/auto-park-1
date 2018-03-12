@@ -18,22 +18,12 @@ dependencies {
 }
 
 jar {
-<<<<<<< HEAD:auto-park/build.gradle
-  manifest {
-    attributes(
-      'Main-Class': 'Test',
-    	'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
-	  )
-  }
-  from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) })
-}
-=======
     manifest {
         attributes(
-                'Main-Class': 'PAS.Layout',
+                'Main-Class': 'PAS.InputLayout',
                 'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
         )
     }
     from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) })
 }
->>>>>>> f319731b6499d6d3e768c8851b3938534b9513f0:autopark/build.gradle
+

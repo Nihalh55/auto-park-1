@@ -82,13 +82,14 @@ public class InputLayout{
     private int     number_of_rows;                                             //holds the number of rows of the grid
     private int     number_of_cols;                                             //holds the number of columns
     public  Object[][] dataEntries;                                             //holds information
-
+    private Layout  layout;
     //Method decalarations
 
     public InputLayout(){
 
-        number_of_cols = 50;
-        number_of_rows = 50;
+        number_of_cols = 20;
+        number_of_rows = 20;
+        layout = new Layout();
     }
 
     public void createTable(){
@@ -101,7 +102,7 @@ public class InputLayout{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //create column titles
-        String[] columnTitles = new String[50];
+        String[] columnTitles = new String[number_of_cols];
         for(i=0;i<number_of_cols;++i){
 
             columnTitles[i] = new String();
@@ -109,7 +110,7 @@ public class InputLayout{
         }
 
         //setting the data enteries to "."
-        dataEntries = new Object[50][50];
+        dataEntries = new Object[number_of_rows][number_of_cols];
         for(i = 0; i < number_of_rows; ++i){
 
             for(j=0;j<number_of_cols;++j){
@@ -137,21 +138,20 @@ public class InputLayout{
         }
 
         frame.add(new JScrollPane(table));
-        frame.setSize(1000, 1000);
+        frame.setSize(500, 500);
         frame.setVisible(true);
 
-        /*
-                        for testing purposes
-
+        //After input is done we have to extract the information
         frame.addWindowListener(new WindowAdapter() {
             //I skipped unused callbacks for readability
 
             @Override
             public void windowClosing(WindowEvent e) {
-                displayData();
+
+                    layout.extractInformation(number_of_rows,number_of_cols,dataEntries);
                 }
         });
-        */
+
     }
 
     public void displayData(){
@@ -168,14 +168,28 @@ public class InputLayout{
         }
     }
 
+    public int getNumberOfRowsInGrid(){
+
+        //Function to obtain the number of rows in the grid
+        return number_of_rows;
+    }
+
+    public int getNumberOfColsInGrid(){
+
+        //Function to obtain the number of columns in the grid
+        return number_of_cols;
+    }
+
     //main
     public static void main(String[] args){
 
         //Main function of the java program
+        InputLayout l = new InputLayout();
+        l.createTable();
 
         //Test t = new Test();
         //t.createTable();
         //t.displayData();
-        System.out.println("hi");
+        //System.out.println("hi");
     }
 }
