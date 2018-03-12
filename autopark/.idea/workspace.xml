@@ -2,16 +2,48 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b6a0c8fe-6f61-48fd-a6b0-c3e3deb7e128" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/4.0/taskHistory/fileSnapshots.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.lock" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileChanges/last-build.bin" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileContent/annotation-processors.bin" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileContent/fileContent.lock" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.bin" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileHashes/fileHashes.lock" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/fileHashes/resourceHashesCache.bin" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/fileSnapshots.bin" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.bin" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.0/taskHistory/taskHistory.lock" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/built.bin" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties.lock" afterPath="" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PAS/Car.java" afterPath="$PROJECT_DIR$/src/main/java/PAS/Car.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PAS/SOU.java" afterPath="$PROJECT_DIR$/src/main/java/PAS/SOU.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PAS/Slot.java" afterPath="$PROJECT_DIR$/src/main/java/PAS/Slot.java" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/PAS/Car.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/PAS/Destination.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/PAS/Layout.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/PAS/PickAFile.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/PAS/SOU.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/PAS/Server.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/PAS/Slot.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/PAS/Car.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/PAS/Destination.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/PAS/Layout.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/PAS/PickAFile.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/PAS/Slot.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/PAS/package-frame.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/PAS/package-summary.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/PAS/package-tree.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/allclasses-frame.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/allclasses-noframe.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/constant-values.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/deprecated-list.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/help-doc.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/index-all.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/index.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/overview-tree.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/package-list" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/script.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/docs/javadoc/stylesheet.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/libs/autopark-1.0-SNAPSHOT.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/jar/MANIFEST.MF" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/javadoc/javadoc.options" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="/run/media/gurupunskill/SharedSpace/Work/sem-4/auto-park/autopark/.gradle/" />
@@ -503,6 +535,7 @@
         <option value="/run/media/gurupunskill/SharedSpace/Work/sem-4/auto-park/autopark/src/main/java/PAS/Server.java" />
         <option value="/run/media/gurupunskill/SharedSpace/Work/sem-4/auto-park/autopark/src/main/java/PAS/Car.java" />
         <option value="/run/media/gurupunskill/SharedSpace/Work/sem-4/auto-park/autopark/src/main/java/PAS/Slot.java" />
+        <option value="/run/media/gurupunskill/SharedSpace/Work/sem-4/auto-park/autopark/.gitignore" />
       </list>
     </option>
   </component>
@@ -858,6 +891,14 @@
             <element signature="e#1156#1157#0" expanded="true" />
             <element signature="e#1204#1205#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///run/media/gurupunskill/SharedSpace/Work/sem-4/auto-park/autopark/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="477">
+          <caret line="54" column="20" lean-forward="false" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
