@@ -10,7 +10,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import jxl.read.biff.BiffException;
 import java.io.FileNotFoundException;
+import jxl.write.WriteException;
 import java.util.Date;
+import jxl.write.WritableWorkbook;
+import jxl.write.WritableSheet;
+import jxl.write.WritableCell;
+import jxl.write.Label;
 import jxl.*;
 
 import java.awt.Point;                              //Imported this library for the Point class
@@ -41,6 +46,8 @@ public class Layout{
         //Default constructor
         number_of_destinations = 0;
         capacity = 0;
+        row_bound = 50;
+        col_bound = 50;
     }
 
     public void getFile(){
@@ -79,12 +86,14 @@ public class Layout{
 
                         //Going through the rows
                         Cell cell = sh.getCell(i,j);
+                        System.out.println(cell.getContents());
+                        System.out.println(i + " " + j);
                     }
                 }
             catch(Exception e){
 
             //bound hit
-            row_bounds.add(j);
+            col_bounds.add(j);
             }
         }
 
@@ -101,7 +110,7 @@ public class Layout{
             catch(Exception e){
 
             //bound hit
-            col_bounds.add(i);
+            row_bounds.add(i);
             }
         }
 
@@ -112,7 +121,7 @@ public class Layout{
         row_bound = R.intValue();
         col_bound = C.intValue();
 
-        //System.out.println(row_bound + " " + col_bound + " " + col_bounds.get(5));
+        System.out.println(row_bound + " " + col_bound + " " + col_bounds.get(5));
 
         /*
             Problematic code
@@ -170,15 +179,81 @@ public class Layout{
         //Workbook.close();                                                   //close the sheet to free up memmory
     }
 
-    /*public void makeRectangularLayout() throws FileNotFoundException , java.io.IOException, BiffException{
+    public void makeRectangularLayout() throws FileNotFoundException , java.io.IOException, BiffException , WriteException{
 
         //Function to make the layout rectangular by filling out empty spots with *s and xs
         //If its along the vorder then *
         //Else an x
 
+        //Open the excel sheet
+        FileInputStream fs = new FileInputStream(layout_path);
+        Workbook    wb = Workbook.getWorkbook(fs);
+        Sheet       sh = wb.getSheet(0);
+        Cell a;
 
+        //Create a copy
+        WritableWorkbook copy = Workbook.createWorkbook(new File("/home/nihalh55/Desktop/Temp.xls"), wb);
+        WritableSheet    sheet_copy = copy.getSheet(0);
+        WritableCell     cell_copy;
 
-    }*/
+        //Now for every cell from (0,0) to (row_bound,col_bound) should have some value
+
+        int i =0  , j = 0;                                              //loop variables
+
+        for(i=0;i<row_bound;++i){
+
+                for(j=0;j<col_bound;++j){
+
+                    try{
+                            a = sh.getCell(i,j);
+                            System.out.println(i + " " + j);
+                            char content = a.getContents().charAt(0);
+                            if(!(content == 'P' || content == 'D' || content == '.')){
+
+                                //Empty cell encountered
+                                //Border cells should have *s
+                                if(i ==(row_bound-1) || j == (col_bound-1)){
+
+                                    Label l = new Label(j, i, "*");
+                                    cell_copy = (WritableCell) l;
+                                    sheet_copy.addCell(cell_copy);
+                                }
+
+                                else {
+
+                                    Label l = new Label(j, i, "x");
+                                    cell_copy = (WritableCell) l;
+                                    sheet_copy.addCell(cell_copy);
+                                }
+                                System.out.println("hi1" + i + " " + j);
+                            }
+                        }
+                    catch(Exception e){
+
+                        //Empty cell encountered
+                        //Border cells should have *s
+
+                        if(i ==(row_bound-1) || j == (col_bound-1)){
+
+                            Label l = new Label(j, i, "*");
+                            cell_copy = (WritableCell) l;
+                            sheet_copy.addCell(cell_copy);
+                        }
+
+                        else {
+
+                            Label l = new Label(j, i, "x");
+                            cell_copy = (WritableCell) l;
+                            sheet_copy.addCell(cell_copy);
+                        }
+                        System.out.println("hi2" + i + " " + j);
+                    }
+                }
+        }
+
+        copy.write();
+        copy.close();
+    }
 
     public void getNumberOfDestinationsAndSlots() throws FileNotFoundException , java.io.IOException, BiffException{
 
@@ -200,6 +275,7 @@ public class Layout{
             for(j=0;j<col_bound;++j){
 
                 a = sh.getCell(i,j);
+
                 cell_content = a.getContents().charAt(0);
 
                 if(cell_content == 'D')
@@ -209,7 +285,7 @@ public class Layout{
             }
         }
 
-        //System.out.println(number_of_destinations + " " + capacity);
+        System.out.println(number_of_destinations + " " + capacity);
     }
 
     public void extractDestinationsFromLayout() throws FileNotFoundException , java.io.IOException, BiffException{
@@ -339,8 +415,9 @@ public class Layout{
         layout.getFile();
 
         try {
-            layout.getLayoutDimensions();
-            //layout.getNumberOfDestinationsAndSlots();
+            //layout.getLayoutDimensions();
+            //layout.makeRectangularLayout();
+            layout.getNumberOfDestinationsAndSlots();
             //layout.extractDestinationsFromLayout();
             //layout.extractSlotsFromLayout();
         }
@@ -348,6 +425,6 @@ public class Layout{
             System.out.print(e);
         }
 
-        System.out.println("Hi");
+        System.out.println("Hi" + layout.layout_path);
     }
 }
