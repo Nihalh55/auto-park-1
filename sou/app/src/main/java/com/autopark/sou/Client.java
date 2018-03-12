@@ -40,10 +40,8 @@ public class Client extends AsyncTask<Void, Void, Void> {
 
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
-            Toast.makeText(context, "UnknownHostException: " + e.toString(), Toast.LENGTH_LONG).show();
 		} catch (IOException e) {
 			e.printStackTrace();
-            Toast.makeText(context, "IOException: " + e.toString(), Toast.LENGTH_LONG).show();
 		} finally {
 			if (socket != null) {
 				try {

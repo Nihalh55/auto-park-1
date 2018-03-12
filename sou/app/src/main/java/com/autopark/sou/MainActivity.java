@@ -46,9 +46,9 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int id;
+    private String id;
     private static final int REQUEST_IMAGE = 100;
-    private static final int STORAGE=1;
+    private static final int PERMISSIONS = 1;
     private String ANDROID_DATA_DIR;
     private static File destination;
     private TextView resultTextView;
@@ -77,12 +77,12 @@ public class MainActivity extends AppCompatActivity {
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
+        // ITS CRASHING HERE
         settings = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
 
-        id = settings.getInt(SettingsActivity.KEY_SLOT_ID, 1);
+        id = settings.getString(SettingsActivity.KEY_SLOT_ID, "1");
         port = settings.getString(SettingsActivity.KEY_SERVER_PORT, "5050");
         serverAddress = settings.getString(SettingsActivity.KEY_SERVER_ADDR, "192.168.12.1");
-
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -169,11 +169,23 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.CAMERA);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.INTERNET);
+        }
+
         if (!permissions.isEmpty()) {
-            Toast.makeText(this, "Storage access required", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Permissions required", Toast.LENGTH_LONG).show();
             String[] params = permissions.toArray(new String[permissions.size()]);
-            ActivityCompat.requestPermissions(this, params, STORAGE);
-        } else { // We already have permissions, so handle as normal
+            ActivityCompat.requestPermissions(this, params, PERMISSIONS);
+        }
+
+        else { // We already have permissions, so handle as normal
             takePicture();
         }
     }
@@ -207,5 +219,11 @@ public class MainActivity extends AppCompatActivity {
         if (destination != null) {// Picasso does not seem to have an issue with a null value, but to be safe
             Picasso.with(MainActivity.this).load(destination).fit().centerCrop().into(imageView);
         }
+        settings = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+
+        id = settings.getString (SettingsActivity.KEY_SLOT_ID, "1");
+        port = settings.getString(SettingsActivity.KEY_SERVER_PORT, "5050");
+        serverAddress = settings.getString(SettingsActivity.KEY_SERVER_ADDR, "192.168.12.1");
+
     }
 }
