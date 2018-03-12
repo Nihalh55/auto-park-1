@@ -23,11 +23,10 @@ public class Destination{
         destination_coordinates = new Point(0,0);
     }
 
-    public Destination(int id, String name , Point coord){
+    public Destination(int id, Point coord){
 
         //Constructor class to intialise the data men=mbers to certain given values in the parameter
         destination_ID = id;
-        destination_name = name;
         destination_coordinates = new Point();
         destination_coordinates.setLocation(coord);
     }
