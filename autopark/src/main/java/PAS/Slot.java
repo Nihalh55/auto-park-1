@@ -1,9 +1,5 @@
 package PAS;
-/**
- * The Slot class holds all information pertaining
- * to a parking slot and provides methods to modify
- * this information.
- */
+
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -14,6 +10,15 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.awt.Point;
 
+/**
+ * The Slot class holds all information pertaining
+ * to a parking slot and provides methods to access
+ * this information.
+ *
+ * It extends the Thread class. The thread class is
+ * used to communicate, with the SOU Mobile Controller,
+ * without interrupting application flow.
+ */
 public class Slot extends Thread{
 
     private Point               slot_coordinates;                               //holds the coordinates of the slot
@@ -29,6 +34,12 @@ public class Slot extends Thread{
     private Socket              talkToApp;
     private DataInputStream     in = null;
 
+    /**
+     * Class Constructor.
+     * Creates a Slot object that can hold the information for a specific parking slot.
+     * @param id        Slot Identification Number
+     * @param socket    Socket that the object would use to communicate with the SOU instance.
+     */
     public Slot(int id, Socket socket){
 
         slot_ID         = id;
@@ -41,14 +52,20 @@ public class Slot extends Thread{
         talkToApp       = socket;
     }
 
-    public void inputSlotID(int id){
-        slot_ID = id;
-    }
-
+    /**
+     * Assigns the coordinates of the slot to provided coordinates.
+     * @param p The Point object that holds the coordinates to be assigned to the slot.
+     *          @see java.awt.Point
+     */
     public void inputSlotCoord(Point p){
         slot_coordinates = p;
     }
 
+    /**
+     * Assigns the array of distances (to destinations) to provided distances array.
+     * @param arr   Array to be assigned.
+     * @param n     Number of destinations.
+     */
     public void inputDistances(double[] arr, int n){
         distance_to_destinations = Arrays.copyOf(arr, n);
     }
