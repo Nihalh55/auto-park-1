@@ -40,11 +40,11 @@ Thumbs.db
 .gradle
 .project
 .classpath
-/.settings/
-/bin/
-/build/
-/out/
-/.idea/
+.settings/
+bin/
+build/
+out/
+.idea/
 # Ignore Gradle GUI config
 gradle-app.setting
 
