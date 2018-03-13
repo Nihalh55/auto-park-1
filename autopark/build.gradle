@@ -18,7 +18,7 @@ dependencies {
 jar {
     manifest {
         attributes(
-                'Main-Class': 'PAS.InputLayout',
+                'Main-Class': 'PAS.Setup',
                 'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
         )
     }

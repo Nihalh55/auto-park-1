@@ -12,6 +12,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.ServerSocket;
 
 public class InputLayout{
 
@@ -83,13 +84,15 @@ public class InputLayout{
     private int     number_of_cols;                                             //holds the number of columns
     public  Object[][] dataEntries;                                             //holds information
     private Layout  layout;
+    private static ServerSocket server;
     //Method decalarations
 
-    public InputLayout(){
+    public InputLayout(ServerSocket Server){
 
         number_of_cols = 20;
         number_of_rows = 20;
-        layout = new Layout();
+        server = Server;
+        layout = new Layout(server);
     }
 
     public void createTable(){
@@ -143,7 +146,6 @@ public class InputLayout{
 
         //After input is done we have to extract the information
         frame.addWindowListener(new WindowAdapter() {
-            //I skipped unused callbacks for readability
 
             @Override
             public void windowClosing(WindowEvent e) {
@@ -184,7 +186,15 @@ public class InputLayout{
     public static void main(String[] args){
 
         //Main function of the java program
-        InputLayout l = new InputLayout();
+        int PORT = 5050;
+        try{
+            ServerSocket server = new ServerSocket(PORT);
+        }
+        catch (Exception e) {
+            System.out.print(e);
+        }
+
+        InputLayout l = new InputLayout(server);
         l.createTable();
 
         //Test t = new Test();

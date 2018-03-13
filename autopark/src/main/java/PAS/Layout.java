@@ -2,22 +2,10 @@ package PAS;
 //Layout Class
 //This class decribes the parking layout which will be inputted by the user
 
+import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.LinkedList;
-/*
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import jxl.read.biff.BiffException;
-import java.io.FileNotFoundException;
-import jxl.write.WriteException;
-import java.util.Date;
-import jxl.write.WritableWorkbook;
-import jxl.write.WritableSheet;
-import jxl.write.WritableCell;
-import jxl.write.Label;
-import jxl.*;
-*/
+
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -28,241 +16,83 @@ import javax.swing.table.TableModel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import java.awt.Point;                              //Imported this library for the Point class
-import java.util.Collections;                       //Imported for Collection class
+import java.awt.Point;                                                          //Imported this library for the Point class
+import java.util.Collections;                                                   //Imported for Collection class
 
 public class Layout{
 
     //Main class begins
     //Data members declaration segment
 
-    //private String      layout_path;                            //holds the path of layout file (Excel)
-    private double      average_SOU_accuracy;                   //holds the latest calculated average SOU accuracy
-    //private int         row_bound;                              //holds the row bound for the layout
-    //private int         col_bound;                               //holds the column bound for the layout
-    private int         current_car_count;                      //holds the current number of cars in the layout
-    public int         capacity;                               //holds the capacity of the layout,i.e, tells us the total number of slots
-    private int         number_of_destinations;                 //holds the number of destinations present near the layput available for console menu
-    private int         total_number_of_cars;                   //holds the number of cars in total over a timeline
-    private int         total_number_of_days;                   //holds the number of days since the start of the implementation f the software on the Layout
-    private LinkedList<Integer>     offense_list;               //holds the slot ids which have been marked as 'offense'
-    private Destination[] destination_list;                    //holds the information of the available destinations at the Layout
-    private Slot[]        slot_list;                           //holds the information of the slots present at the parking layout
-    //private InputLayout access_to_layout_grid;                                  //holds the layout grid info from the InputLayout class
-
+    private double                  average_SOU_accuracy;                       //holds the latest calculated average SOU accuracy
+    private int                     current_car_count;                          //holds the current number of cars in the layout
+    private int                     capacity;                                   //holds the capacity of the layout,i.e, tells us the total number of slots
+    private int                     number_of_destinations;                     //holds the number of destinations present near the layput available for console menu
+    private int                     total_number_of_cars;                       //holds the number of cars in total over a timeline
+    private int                     total_number_of_days;                       //holds the number of days since the start of the implementation f the software on the Layout
+    private LinkedList<Integer>     offense_list;                               //holds the slot ids which have been marked as 'offense'
+    private Destination[]           destination_list;                           //holds the information of the available destinations at the Layout
+    private Slot[]                  slot_list;                                  //holds the information of the slots present at the parking layout
+    private static ServerSocket     server;
     //Methods declaration
 
-    public Layout(){
+    public Layout(ServerSocket Server){
 
         //Default constructor
         number_of_destinations = 0;
         capacity = 0;
+        server = Server;
     }
 
-    /*public void getFile(){
+    public double getAverageSOUAccuracy() {
 
-        //Function to choose the excel file having the layout and getting its file path
-        System.out.println("\nChoose your file...\n");
-        PickAFile picker = new PickAFile();
+        return average_SOU_accuracy;
+    }
 
-        picker.chooseFile();
-        layout_path = picker.selected_file_path;
-    }*/
+    public void inputAverageSOUAccuracy(double average_SOU_accuracy) {
 
-    /*public void getLayoutDimensions() throws FileNotFoundException , java.io.IOException, BiffException{
+        this.average_SOU_accuracy = average_SOU_accuracy;
+    }
 
-        //Function to obtain layout dimensions
+    public int getCurrentCarCount() {
 
-        ArrayList<Integer> row_bounds = new ArrayList<Integer>();
-        ArrayList<Integer> col_bounds = new ArrayList<Integer>();
+        return current_car_count;
+    }
 
-        //Open the excel sheet
-        FileInputStream fs = new FileInputStream(layout_path);
-        Workbook wb = Workbook.getWorkbook(fs);
+    public void inputCurrentCarCount(int current_car_count) {
 
-        //Get the required sheet from the excel sheet
-        Sheet sh = wb.getSheet(0);
+        this.current_car_count = current_car_count;
+    }
 
-        int i = 0 , j = 0;                                                      //loop variables                                                     //holds cell content extracted from excel sheet
+    public int getTotalNumberOfCars() {
 
-        //To find the bounds using try{..} catch{..}
-        //We have to try and catch it for every row and column and then take max of it
-        //To find row bound
-        for(i=0;i<50;++i){
+        return total_number_of_cars;
+    }
 
-            try{
-                for(j=0;j<50;++j){
+    public void inputTotalNumberOfCars(int total_number_of_cars) {
 
-                    //Going through the rows
-                    Cell cell = sh.getCell(i,j);
-                    System.out.println(cell.getContents());
-                    System.out.println(i + " " + j);
-                }
-            }
-            catch(Exception e){
+        this.total_number_of_cars = total_number_of_cars;
+    }
 
-                //bound hit
-                col_bounds.add(j);
-            }
-        }
+    public int getTotalNumberOfDays() {
 
-        //To find column bond
-        for(j=0;j<50;++j){
+        return total_number_of_days;
+    }
 
-            try{
-                for(i=0;i<50;++i){
+    public void inputTotalNumberOfDays(int total_number_of_days) {
 
-                    //Going through the columns
-                    Cell cell = sh.getCell(i,j);
-                }
-            }
-            catch(Exception e){
+        this.total_number_of_days = total_number_of_days;
+    }
 
-                //bound hit
-                row_bounds.add(i);
-            }
-        }
+    public LinkedList<Integer> getOffenseList() {
 
-        //Now we have to find the maximum in both
-        Integer R = Collections.max(row_bounds);
-        Integer C = Collections.max(col_bounds);
+        return offense_list;
+    }
 
-        row_bound = R.intValue();
-        col_bound = C.intValue();
+    public void inputOffenseList(LinkedList<Integer> offense_list) {
 
-        System.out.println(row_bound + " " + col_bound + " " + col_bounds.get(5));
-
-        /*
-            Problematic code
-
-        for(i=0;i<100;++i){
-            for(j=0;j<100;++j){
-
-                cell_content = sh.getCell(i,j).getContents().charAt(0);
-                if((cell_content == 'D') || (cell_content == '.') || (cell_content == 'P')){
-
-                    if(flag_left == 0){
-
-                        left = new Point(i,j);
-                        flag_left = 1;
-                    }
-                    last_scanned_x = i;
-                    last_scanned_y = j;
-                }
-
-                if (cell_content == 'D')
-                {
-                    number_of_destinations++;
-                }
-            }
-        }
-
-        right = new Point(last_scanned_x, last_scanned_y);
-
-        for(j=0;j<100;++j){
-            for(i=0;i<100;++i){
-                cell_content = sh.getCell(i,j).getContents().charAt(0);
-                if((cell_content == 'D') || (cell_content == '.') || (cell_content == 'P')){
-
-                    if(flag_top == 0){
-                        top = new Point(i,j);
-                        flag_top = 1;
-                    }
-                    last_scanned_x = i;
-                    last_scanned_y = j;
-                }
-
-                if (cell_content == 'D')
-                {
-                    number_of_destinations++;
-                }
-            }
-        }
-
-        bottom = new Point(last_scanned_x,last_scanned_y);
-
-
-
-        //System.out.println(number_of_destinations);
-
-        //Workbook.close();                                                   //close the sheet to free up memmory
-    }*/
-
-    /*public void makeRectangularLayout() throws FileNotFoundException , java.io.IOException, BiffException , WriteException{
-
-        //Function to make the layout rectangular by filling out empty spots with *s and xs
-        //If its along the vorder then *
-        //Else an x
-
-        //Open the excel sheet
-        FileInputStream fs = new FileInputStream(layout_path);
-        Workbook    wb = Workbook.getWorkbook(fs);
-        Sheet       sh = wb.getSheet(0);
-        Cell a;
-
-        //Create a copy
-        WritableWorkbook copy = Workbook.createWorkbook(new File("/home/nihalh55/Desktop/Temp.xls"), wb);
-        WritableSheet    sheet_copy = copy.getSheet(0);
-        WritableCell     cell_copy;
-
-        //Now for every cell from (0,0) to (row_bound,col_bound) should have some value
-
-        int i =0  , j = 0;                                              //loop variables
-
-        for(i=0;i<row_bound;++i){
-
-            for(j=0;j<col_bound;++j){
-
-                try{
-                    a = sh.getCell(i,j);
-                    System.out.println(i + " " + j);
-                    char content = a.getContents().charAt(0);
-                    if(!(content == 'P' || content == 'D' || content == '.')){
-
-                        //Empty cell encountered
-                        //Border cells should have *s
-                        if(i ==(row_bound-1) || j == (col_bound-1)){
-
-                            Label l = new Label(j, i, "*");
-                            cell_copy = (WritableCell) l;
-                            sheet_copy.addCell(cell_copy);
-                        }
-
-                        else {
-
-                            Label l = new Label(j, i, "x");
-                            cell_copy = (WritableCell) l;
-                            sheet_copy.addCell(cell_copy);
-                        }
-                        System.out.println("hi1" + i + " " + j);
-                    }
-                }
-                catch(Exception e){
-
-                    //Empty cell encountered
-                    //Border cells should have *s
-
-                    if(i ==(row_bound-1) || j == (col_bound-1)){
-
-                        Label l = new Label(j, i, "*");
-                        cell_copy = (WritableCell) l;
-                        sheet_copy.addCell(cell_copy);
-                    }
-
-                    else {
-
-                        Label l = new Label(j, i, "x");
-                        cell_copy = (WritableCell) l;
-                        sheet_copy.addCell(cell_copy);
-                    }
-                    System.out.println("hi2" + i + " " + j);
-                }
-            }
-        }
-
-        copy.write();
-        copy.close();
-    }*/
+        this.offense_list = offense_list;
+    }
 
     public void getNumberOfDestinationsAndSlots(int rows, int cols, Object[][] data){
 
@@ -367,9 +197,14 @@ public class Layout{
                     //assign id and coordinates
                     Point p = new Point(i,j);
 
-                    slot_list[k] = new Slot();
-                    slot_list[k].inputSlotID(k+1);
+<<<<<<< HEAD
+                    //slot_list[k] = new Slot();
+                    //slot_list[k].inputSlotID(k+1);
+                    //slot_list[k].inputSlotCoord(p);
+=======
+                    slot_list[k] = new Slot(k+1, server);
                     slot_list[k].inputSlotCoord(p);
+>>>>>>> d37f150778677c75a010efe10cf4d2bb2101c54e
                     k = k + 1;
                 }
             }
@@ -421,4 +256,6 @@ public class Layout{
         //Tester code
         //System.out.println("Hi");
     }
+
+
 }
