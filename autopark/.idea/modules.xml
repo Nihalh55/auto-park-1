@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/auto-park-autopark_main.iml" filepath="$PROJECT_DIR$/.idea/modules/auto-park-autopark_main.iml" group="autopark" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/auto-park-autopark_test.iml" filepath="$PROJECT_DIR$/.idea/modules/auto-park-autopark_test.iml" group="autopark" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/autopark.iml" filepath="$PROJECT_DIR$/.idea/modules/autopark.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/autopark_main.iml" filepath="$PROJECT_DIR$/.idea/modules/autopark_main.iml" group="autopark" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/autopark_test.iml" filepath="$PROJECT_DIR$/.idea/modules/autopark_test.iml" group="autopark" />
     </modules>
   </component>
 </project>

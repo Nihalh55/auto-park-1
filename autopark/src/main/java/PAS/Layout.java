@@ -2,6 +2,7 @@ package PAS;
 //Layout Class
 //This class decribes the parking layout which will be inputted by the user
 
+import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -32,210 +33,66 @@ public class Layout{
     private LinkedList<Integer>     offense_list;                               //holds the slot ids which have been marked as 'offense'
     private Destination[]           destination_list;                           //holds the information of the available destinations at the Layout
     private Slot[]                  slot_list;                                  //holds the information of the slots present at the parking layout
-
+    private static ServerSocket     server;
     //Methods declaration
 
-    public Layout(){
+    public Layout(ServerSocket Server){
 
         //Default constructor
         number_of_destinations = 0;
         capacity = 0;
+        server = Server;
     }
 
-    /*public void getLayoutDimensions() throws FileNotFoundException , java.io.IOException, BiffException{
+    public double getAverageSOUAccuracy() {
 
-        //Function to obtain layout dimensions
+        return average_SOU_accuracy;
+    }
 
-        ArrayList<Integer> row_bounds = new ArrayList<Integer>();
-        ArrayList<Integer> col_bounds = new ArrayList<Integer>();
+    public void inputAverageSOUAccuracy(double average_SOU_accuracy) {
 
-        //Open the excel sheet
-        FileInputStream fs = new FileInputStream(layout_path);
-        Workbook wb = Workbook.getWorkbook(fs);
+        this.average_SOU_accuracy = average_SOU_accuracy;
+    }
 
-        //Get the required sheet from the excel sheet
-        Sheet sh = wb.getSheet(0);
+    public int getCurrentCarCount() {
 
-        int i = 0 , j = 0;                                                      //loop variables                                                     //holds cell content extracted from excel sheet
+        return current_car_count;
+    }
 
-        //To find the bounds using try{..} catch{..}
-        //We have to try and catch it for every row and column and then take max of it
-        //To find row bound
-        for(i=0;i<50;++i){
+    public void inputCurrentCarCount(int current_car_count) {
 
-            try{
-                for(j=0;j<50;++j){
+        this.current_car_count = current_car_count;
+    }
 
-                    //Going through the rows
-                    Cell cell = sh.getCell(i,j);
-                    System.out.println(cell.getContents());
-                    System.out.println(i + " " + j);
-                }
-            }
-            catch(Exception e){
+    public int getTotalNumberOfCars() {
 
-                //bound hit
-                col_bounds.add(j);
-            }
-        }
+        return total_number_of_cars;
+    }
 
-        //To find column bond
-        for(j=0;j<50;++j){
+    public void inputTotalNumberOfCars(int total_number_of_cars) {
 
-            try{
-                for(i=0;i<50;++i){
+        this.total_number_of_cars = total_number_of_cars;
+    }
 
-                    //Going through the columns
-                    Cell cell = sh.getCell(i,j);
-                }
-            }
-            catch(Exception e){
+    public int getTotalNumberOfDays() {
 
-                //bound hit
-                row_bounds.add(i);
-            }
-        }
+        return total_number_of_days;
+    }
 
-        //Now we have to find the maximum in both
-        Integer R = Collections.max(row_bounds);
-        Integer C = Collections.max(col_bounds);
+    public void inputTotalNumberOfDays(int total_number_of_days) {
 
-        row_bound = R.intValue();
-        col_bound = C.intValue();
+        this.total_number_of_days = total_number_of_days;
+    }
 
-        System.out.println(row_bound + " " + col_bound + " " + col_bounds.get(5));
+    public LinkedList<Integer> getOffenseList() {
 
-        /*
-            Problematic code
+        return offense_list;
+    }
 
-        for(i=0;i<100;++i){
-            for(j=0;j<100;++j){
+    public void inputOffenseList(LinkedList<Integer> offense_list) {
 
-                cell_content = sh.getCell(i,j).getContents().charAt(0);
-                if((cell_content == 'D') || (cell_content == '.') || (cell_content == 'P')){
-
-                    if(flag_left == 0){
-
-                        left = new Point(i,j);
-                        flag_left = 1;
-                    }
-                    last_scanned_x = i;
-                    last_scanned_y = j;
-                }
-
-                if (cell_content == 'D')
-                {
-                    number_of_destinations++;
-                }
-            }
-        }
-
-        right = new Point(last_scanned_x, last_scanned_y);
-
-        for(j=0;j<100;++j){
-            for(i=0;i<100;++i){
-                cell_content = sh.getCell(i,j).getContents().charAt(0);
-                if((cell_content == 'D') || (cell_content == '.') || (cell_content == 'P')){
-
-                    if(flag_top == 0){
-                        top = new Point(i,j);
-                        flag_top = 1;
-                    }
-                    last_scanned_x = i;
-                    last_scanned_y = j;
-                }
-
-                if (cell_content == 'D')
-                {
-                    number_of_destinations++;
-                }
-            }
-        }
-
-        bottom = new Point(last_scanned_x,last_scanned_y);
-
-
-
-        //System.out.println(number_of_destinations);
-
-        //Workbook.close();                                                   //close the sheet to free up memmory
-    }*/
-
-    /*public void makeRectangularLayout() throws FileNotFoundException , java.io.IOException, BiffException , WriteException{
-
-        //Function to make the layout rectangular by filling out empty spots with *s and xs
-        //If its along the vorder then *
-        //Else an x
-
-        //Open the excel sheet
-        FileInputStream fs = new FileInputStream(layout_path);
-        Workbook    wb = Workbook.getWorkbook(fs);
-        Sheet       sh = wb.getSheet(0);
-        Cell a;
-
-        //Create a copy
-        WritableWorkbook copy = Workbook.createWorkbook(new File("/home/nihalh55/Desktop/Temp.xls"), wb);
-        WritableSheet    sheet_copy = copy.getSheet(0);
-        WritableCell     cell_copy;
-
-        //Now for every cell from (0,0) to (row_bound,col_bound) should have some value
-
-        int i =0  , j = 0;                                              //loop variables
-
-        for(i=0;i<row_bound;++i){
-
-            for(j=0;j<col_bound;++j){
-
-                try{
-                    a = sh.getCell(i,j);
-                    System.out.println(i + " " + j);
-                    char content = a.getContents().charAt(0);
-                    if(!(content == 'P' || content == 'D' || content == '.')){
-
-                        //Empty cell encountered
-                        //Border cells should have *s
-                        if(i ==(row_bound-1) || j == (col_bound-1)){
-
-                            Label l = new Label(j, i, "*");
-                            cell_copy = (WritableCell) l;
-                            sheet_copy.addCell(cell_copy);
-                        }
-
-                        else {
-
-                            Label l = new Label(j, i, "x");
-                            cell_copy = (WritableCell) l;
-                            sheet_copy.addCell(cell_copy);
-                        }
-                        System.out.println("hi1" + i + " " + j);
-                    }
-                }
-                catch(Exception e){
-
-                    //Empty cell encountered
-                    //Border cells should have *s
-
-                    if(i ==(row_bound-1) || j == (col_bound-1)){
-
-                        Label l = new Label(j, i, "*");
-                        cell_copy = (WritableCell) l;
-                        sheet_copy.addCell(cell_copy);
-                    }
-
-                    else {
-
-                        Label l = new Label(j, i, "x");
-                        cell_copy = (WritableCell) l;
-                        sheet_copy.addCell(cell_copy);
-                    }
-                    System.out.println("hi2" + i + " " + j);
-                }
-            }
-        }
-
-        copy.write();
-        copy.close();
-    }*/
+        this.offense_list = offense_list;
+    }
 
     public void getNumberOfDestinationsAndSlots(int rows, int cols, Object[][] data){
 
@@ -340,8 +197,7 @@ public class Layout{
                     //assign id and coordinates
                     Point p = new Point(i,j);
 
-                    slot_list[k] = new Slot();
-                    slot_list[k].inputSlotID(k+1);
+                    slot_list[k] = new Slot(k+1, server);
                     slot_list[k].inputSlotCoord(p);
                     k = k + 1;
                 }
@@ -394,4 +250,6 @@ public class Layout{
         //Tester code
         //System.out.println("Hi");
     }
+
+
 }
