@@ -4,20 +4,7 @@ package PAS;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-/*
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import jxl.read.biff.BiffException;
-import java.io.FileNotFoundException;
-import jxl.write.WriteException;
-import java.util.Date;
-import jxl.write.WritableWorkbook;
-import jxl.write.WritableSheet;
-import jxl.write.WritableCell;
-import jxl.write.Label;
-import jxl.*;
-*/
+
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -28,27 +15,23 @@ import javax.swing.table.TableModel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import java.awt.Point;                              //Imported this library for the Point class
-import java.util.Collections;                       //Imported for Collection class
+import java.awt.Point;                                                          //Imported this library for the Point class
+import java.util.Collections;                                                   //Imported for Collection class
 
 public class Layout{
 
     //Main class begins
     //Data members declaration segment
 
-    //private String      layout_path;                            //holds the path of layout file (Excel)
-    private double      average_SOU_accuracy;                   //holds the latest calculated average SOU accuracy
-    //private int         row_bound;                              //holds the row bound for the layout
-    //private int         col_bound;                               //holds the column bound for the layout
-    private int         current_car_count;                      //holds the current number of cars in the layout
-    public int         capacity;                               //holds the capacity of the layout,i.e, tells us the total number of slots
-    private int         number_of_destinations;                 //holds the number of destinations present near the layput available for console menu
-    private int         total_number_of_cars;                   //holds the number of cars in total over a timeline
-    private int         total_number_of_days;                   //holds the number of days since the start of the implementation f the software on the Layout
-    private LinkedList<Integer>     offense_list;               //holds the slot ids which have been marked as 'offense'
-    private Destination[] destination_list;                    //holds the information of the available destinations at the Layout
-    private Slot[]        slot_list;                           //holds the information of the slots present at the parking layout
-    //private InputLayout access_to_layout_grid;                                  //holds the layout grid info from the InputLayout class
+    private double                  average_SOU_accuracy;                       //holds the latest calculated average SOU accuracy
+    private int                     current_car_count;                          //holds the current number of cars in the layout
+    private int                     capacity;                                   //holds the capacity of the layout,i.e, tells us the total number of slots
+    private int                     number_of_destinations;                     //holds the number of destinations present near the layput available for console menu
+    private int                     total_number_of_cars;                       //holds the number of cars in total over a timeline
+    private int                     total_number_of_days;                       //holds the number of days since the start of the implementation f the software on the Layout
+    private LinkedList<Integer>     offense_list;                               //holds the slot ids which have been marked as 'offense'
+    private Destination[]           destination_list;                           //holds the information of the available destinations at the Layout
+    private Slot[]                  slot_list;                                  //holds the information of the slots present at the parking layout
 
     //Methods declaration
 
@@ -58,16 +41,6 @@ public class Layout{
         number_of_destinations = 0;
         capacity = 0;
     }
-
-    /*public void getFile(){
-
-        //Function to choose the excel file having the layout and getting its file path
-        System.out.println("\nChoose your file...\n");
-        PickAFile picker = new PickAFile();
-
-        picker.chooseFile();
-        layout_path = picker.selected_file_path;
-    }*/
 
     /*public void getLayoutDimensions() throws FileNotFoundException , java.io.IOException, BiffException{
 
