@@ -33,14 +33,14 @@ public class Slot extends Thread{
     private double[]            distance_to_destinations;                       //holds the distances to various destinations present in and around the parking layout
     private Socket              talkToApp;
     private DataInputStream     in = null;
+    private boolean             socket_flag;
 
     /**
      * Class Constructor.
      * Creates a Slot object that can hold the information for a specific parking slot.
      * @param id        Slot Identification Number
-     * @param socket    Socket that the object would use to communicate with the SOU instance.
      */
-    public Slot(int id, Socket socket){
+    public Slot(int id){
 
         slot_ID         = id;
         offense_flag    = false;
@@ -49,7 +49,7 @@ public class Slot extends Thread{
         offense_count   = 0;
         sou_car         = new Car();
         assigned_car    = new Car();
-        talkToApp       = socket;
+        socket_flag     = false;
     }
 
     /**
@@ -66,19 +66,19 @@ public class Slot extends Thread{
      * @param arr   Array to be assigned.
      * @param n     Number of destinations.
      */
-    public void inputDistances(double[] arr, int n){
+    public void setDistances(double[] arr, int n){
         distance_to_destinations = Arrays.copyOf(arr, n);
     }
 
-    public double[] getDistance_to_destinations() {
+    public double[] getDistances() {
         return distance_to_destinations;
     }
 
-    public int getSlotID(){
+    public int getSlotID() {
         return slot_ID;
     }
 
-    public Point getSlotCoord(){
+    public Point getSlotCoord() {
         return slot_coordinates;
     }
 
@@ -94,7 +94,14 @@ public class Slot extends Thread{
         return offense_count;
     }
 
-    public String getCarNumber() { return sou_car.getNumberPlate(); }
+    public String getCarNumber() {
+        return sou_car.getNumberPlate();
+    }
+
+    public void useSocket (Socket socket) {
+        socket_flag = true;
+        talkToApp = socket;
+    }
 
     public void assignCar(String car_number){
         assigned_car.inputNumberPlate(car_number);
@@ -108,37 +115,38 @@ public class Slot extends Thread{
     }
     @Override
     public void run() {
-        String message = null;
-        try
-        {
-            in = new DataInputStream(new BufferedInputStream(talkToApp.getInputStream()));
 
-            try
-            {
-                message = in.readUTF();
-            }
-            catch(IOException i)
-            {
+        if (socket_flag) {
+
+            String message = null;
+            try {
+                in = new DataInputStream(new BufferedInputStream(talkToApp.getInputStream()));
+
+                try {
+                    message = in.readUTF();
+                } catch (IOException i) {
+                    System.out.println(i);
+                }
+
+                talkToApp.close();
+                in.close();
+            } catch (IOException i) {
                 System.out.println(i);
             }
 
-            talkToApp.close();
-            in.close();
-        }
-        catch(IOException i)
-        {
-            System.out.println(i);
-        }
-        String[] arr = message.split(":",2);
-        int id_check = Integer.parseInt(arr[0]);
-        if (slot_ID != id_check) {
-            System.out.println("App ID mismatch");
-        }
-        else {
-            sou_car.inputNumberPlate(arr[1]);
-            if(!isOffense())
-                status = 2;
-            else status = 3;
+            String[] arr = message.split(":", 2);
+            int id_check = Integer.parseInt(arr[0]);
+
+            if (slot_ID == id_check) {
+                sou_car.inputNumberPlate(arr[1]);
+                if (!isOffense())
+                    status = 2;
+                else status = 3;
+            } else {
+                System.out.println("App ID mismatch");
+            }
+        } else {
+            System.out.println("Socket Not Initialized");
         }
     }
 
@@ -149,7 +157,8 @@ public class Slot extends Thread{
         try {
             server = new ServerSocket(PORT);
             Socket socket = server.accept();
-            Slot test = new Slot(23, socket);
+            Slot test = new Slot(23);
+            test.useSocket(socket);
             test.assignCar("6GDG486");
             test.start();
         }

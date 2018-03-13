@@ -84,15 +84,13 @@ public class InputLayout{
     private int     number_of_cols;                                             //holds the number of columns
     public  Object[][] dataEntries;                                             //holds information
     private Layout  layout;
-    private static ServerSocket server;
     //Method decalarations
 
-    public InputLayout(ServerSocket Server){
+    public InputLayout(){
 
         number_of_cols = 20;
         number_of_rows = 20;
-        server = Server;
-        layout = new Layout(server);
+        layout = new Layout();
     }
 
     public void createTable(){
@@ -107,8 +105,6 @@ public class InputLayout{
         //create column titles
         String[] columnTitles = new String[number_of_cols];
         for(i=0;i<number_of_cols;++i){
-
-            columnTitles[i] = new String();
             columnTitles[i] = String.valueOf(i);
         }
 
@@ -194,7 +190,7 @@ public class InputLayout{
             System.out.print(e);
         }
 
-        InputLayout l = new InputLayout(server);
+        InputLayout l = new InputLayout();
         l.createTable();
 
         //Test t = new Test();
