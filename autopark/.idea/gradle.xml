@@ -7,7 +7,7 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="/run/media/gurupunskill/SharedSpace/Work/sem-4/auto-park/autopark" />
+            <option value="$PROJECT_DIR$" />
           </set>
         </option>
         <option name="useAutoImport" value="true" />

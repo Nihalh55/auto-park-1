@@ -2,6 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="auto-park-autopark_main" target="1.8" />
+      <module name="auto-park-autopark_test" target="1.8" />
       <module name="autopark_main" target="1.8" />
       <module name="autopark_test" target="1.8" />
     </bytecodeTargetLevel>
