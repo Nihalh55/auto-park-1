@@ -340,9 +340,9 @@ public class Layout{
                     //assign id and coordinates
                     Point p = new Point(i,j);
 
-                    slot_list[k] = new Slot();
-                    slot_list[k].inputSlotID(k+1);
-                    slot_list[k].inputSlotCoord(p);
+                    //slot_list[k] = new Slot();
+                    //slot_list[k].inputSlotID(k+1);
+                    //slot_list[k].inputSlotCoord(p);
                     k = k + 1;
                 }
             }

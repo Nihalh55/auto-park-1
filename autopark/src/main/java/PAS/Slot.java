@@ -10,6 +10,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.awt.Point;
 
@@ -25,21 +26,19 @@ public class Slot extends Thread{
     private Car                 sou_car;                                        //holds the info. of car returned by the sou class
     private LinkedList<Car>     car_log;                                        //holds information of all the cars that visited the slot
     private double[]            distance_to_destinations;                       //holds the distances to various destinations present in and around the parking layout
-    private Socket              socket   = null;
-    private ServerSocket        server;
-    private DataInputStream     in       = null;
+    private Socket              talkToApp;
+    private DataInputStream     in = null;
 
-    public Slot(int id, ServerSocket Server){
+    public Slot(int id, Socket socket){
 
         slot_ID         = id;
         offense_flag    = false;
-        slot_ID         = 0;
         status          = 0;
         car_count       = 0;
         offense_count   = 0;
         sou_car         = new Car();
         assigned_car    = new Car();
-        server          = Server;
+        talkToApp       = socket;
     }
 
     public void inputSlotID(int id){
@@ -51,18 +50,7 @@ public class Slot extends Thread{
     }
 
     public void inputDistances(double[] arr, int n){
-        distance_to_destinations = arr;
-    }
-
-    public void assignCar(String car_number){
-        assigned_car.inputNumberPlate(car_number);
-        assigned_car.enteredNow();
-        status = 1;
-    }
-
-    public boolean isOffense(){
-        offense_flag = !(sou_car.getNumberPlate() == assigned_car.getNumberPlate());
-        return offense_flag;
+        distance_to_destinations = Arrays.copyOf(arr, n);
     }
 
     public double[] getDistance_to_destinations() {
@@ -89,13 +77,24 @@ public class Slot extends Thread{
         return offense_count;
     }
 
+    public String getCarNumber() { return sou_car.getNumberPlate(); }
+
+    public void assignCar(String car_number){
+        assigned_car.inputNumberPlate(car_number);
+        assigned_car.enteredNow();
+        status = 1;
+    }
+
+    public boolean isOffense(){
+        offense_flag = !(sou_car.getNumberPlate() == assigned_car.getNumberPlate());
+        return offense_flag;
+    }
     @Override
     public void run() {
         String message = null;
         try
         {
-            socket = server.accept();
-            in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            in = new DataInputStream(new BufferedInputStream(talkToApp.getInputStream()));
 
             try
             {
@@ -106,16 +105,14 @@ public class Slot extends Thread{
                 System.out.println(i);
             }
 
-            socket.close();
+            talkToApp.close();
             in.close();
         }
         catch(IOException i)
         {
             System.out.println(i);
         }
-
         String[] arr = message.split(":",2);
-
         int id_check = Integer.parseInt(arr[0]);
         if (slot_ID != id_check) {
             System.out.println("App ID mismatch");
@@ -128,12 +125,19 @@ public class Slot extends Thread{
         }
     }
 
-    //Main
     public static void main(String[] args) {
 
-        //Main function begins
-
-        //System.out.println("hi");
+        int PORT = 5050;
+        ServerSocket server;
+        try {
+            server = new ServerSocket(PORT);
+            Socket socket = server.accept();
+            Slot test = new Slot(23, socket);
+            test.assignCar("6GDG486");
+            test.start();
+        }
+        catch(Exception e) {
+            System.out.print(e);
+        }
     }
-
 }
