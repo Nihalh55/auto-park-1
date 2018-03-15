@@ -89,6 +89,8 @@ public class InputLayout{
 
     public InputLayout(){
 
+        //TODO: make 10x10 grid
+
         number_of_cols = 20;
         number_of_rows = 20;
         layout = new Layout();
