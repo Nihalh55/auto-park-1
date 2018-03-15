@@ -13,6 +13,7 @@ import javax.swing.table.TableModel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.ServerSocket;
+import java.net.Socket;
 
 public class InputLayout{
 
@@ -84,10 +85,10 @@ public class InputLayout{
     private int     number_of_cols;                                             //holds the number of columns
     public  Object[][] dataEntries;                                             //holds information
     private Layout  layout;
-    private static ServerSocket server;
+    private static Socket server;
     //Method decalarations
 
-    public InputLayout(ServerSocket Server){
+    public InputLayout(Socket Server){
 
         number_of_cols = 20;
         number_of_rows = 20;
