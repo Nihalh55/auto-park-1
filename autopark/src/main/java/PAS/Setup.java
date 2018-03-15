@@ -21,6 +21,11 @@ public class Setup extends JFrame{
 
     //The main panel
     JPanel main_panel = new JPanel();
+    JPanel main_panel_stuff = new JPanel();
+    JPanel main_panel_title = new JPanel();
+    ImageIcon car_image = new ImageIcon("Car.png");
+    JLabel car_title_image = new JLabel(car_image);
+    JLabel title = new JLabel("PARKING ASSIGNMENT SOFTWARE" ,SwingConstants.CENTER);
 
     //Now for the south part
     JPanel south = new JPanel();
@@ -41,25 +46,47 @@ public class Setup extends JFrame{
     JButton layout_button = new JButton("Layout Option");
     JProgressBar progress_bar = new JProgressBar();
 
+    //Now for the center part
+    JPanel center = new JPanel();
+    JButton[][] layout_units = new JButton[10][10];
+    ImageIcon p = new ImageIcon("P.png");
+
     public Setup(){
 
         //Default constructor
 
         super("Test");
-        setSize(800,600);
+        setSize(800,700);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         //----------------------------------------------------------------------
 
-        main_panel.setLayout(new BorderLayout());
+        main_panel_stuff.setLayout(new BorderLayout());
+
+        //----------------------------------------------------------------------
+
+        //the layout button array screen for center part
+        center.setLayout(new GridLayout(10,10));
+        center.setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
+
+        int i = 0 , j = 0;
+        for(i=0;i<10;++i){
+
+            for(j=0;j<10;++j){
+
+                layout_units[i][j] = new JButton(" ");
+                center.add(layout_units[i][j]);
+            }
+        }
+
 
         //----------------------------------------------------------------------
 
         //text area south side
         Color c = new Color(211,211,211);
         Border border = BorderFactory.createLineBorder(Color.BLACK);
-        log_area.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createCompoundBorder(BorderFactory.createEtchedBorder(), BorderFactory.createEmptyBorder(1, 3, 5, 3)) ,
+        log_area.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createCompoundBorder(BorderFactory.createEtchedBorder(), BorderFactory.createEmptyBorder(1, 1, 5, 1)) ,
                 BorderFactory.createTitledBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED), " Dynamic Log" , TitledBorder.CENTER , TitledBorder.ABOVE_TOP)));
         log_area.setBackground(c);
         log_area.setLineWrap(true);
@@ -101,13 +128,24 @@ public class Setup extends JFrame{
         button_panel.add(progress_bar);
 
         east.add(info_area, BorderLayout.SOUTH);
-        east.add(button_panel , BorderLayout.NORTH);
+        east.add(button_panel , BorderLayout.CENTER);
 
         //----------------------------------------------------------------------
 
-        main_panel.add(south, BorderLayout.SOUTH);
-        //main_panel.add(log_area_scroll,BorderLayout.SOUTH);
-        main_panel.add(east , BorderLayout.EAST);
+        main_panel_stuff.add(south, BorderLayout.SOUTH);
+        //main_panel_stuff.add(log_area_scroll,BorderLayout.SOUTH);
+        main_panel_stuff.add(east , BorderLayout.EAST);
+        main_panel_stuff.add(center,BorderLayout.CENTER);
+
+        //main_panel_title.setLayout(new GridLayout(1,2));
+        title.setFont(new Font("Serif" , Font.BOLD , 18));
+        main_panel_title.add(title);
+        //main_panel_title.add(car_title_image);
+
+        main_panel.setLayout(new FlowLayout());
+        main_panel.add(main_panel_title);
+        main_panel.add(main_panel_stuff);
+
         add(main_panel);
         setVisible(true);
 
