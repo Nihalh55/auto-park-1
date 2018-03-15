@@ -13,8 +13,10 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Setup extends JFrame{
+public class Setup extends JFrame /*implements ActionListener*/{
 
     //Main class starts
     //Data member declaration
@@ -151,6 +153,14 @@ public class Setup extends JFrame{
 
 
     }
+
+    /*@Override
+    public void actionPerformed(ActionEvent e) {
+
+        //Function called when an event happens like click of a button
+
+
+    }*/
 
     //Method declaration
     public static void main(String[] args) {
