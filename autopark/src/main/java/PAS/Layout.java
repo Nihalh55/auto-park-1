@@ -22,7 +22,7 @@ public class Layout{
     private Destination[]           destination_list;                           //holds the information of the available destinations at the Layout
     private Slot[]                  slot_list;                                  //holds the information of the slots present at the parking layout
     private int                     PORT;
-    private ServerSocket            server;
+//    private ServerSocket            server;
     //    private static Socket server;
     //Methods declaration
 
@@ -31,11 +31,6 @@ public class Layout{
         //Default constructor
         number_of_destinations = 0;
         capacity = 0;
-        //server = Server;
-    }
-
-    public void initServer(int PORT) throws IOException{
-        server = new ServerSocket(PORT);
     }
 
     public double getAverageSOUAccuracy() {
