@@ -13,6 +13,7 @@ import javax.swing.table.TableModel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.ServerSocket;
+import java.net.Socket;
 
 public class InputLayout{
 

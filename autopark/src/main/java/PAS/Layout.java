@@ -2,8 +2,6 @@ package PAS;
 //Layout Class
 //This class decribes the parking layout which will be inputted by the user
 
-import java.io.IOException;
-import java.net.ServerSocket;
 import java.util.LinkedList;
 import java.awt.Point;                                                          //Imported this library for the Point class
 
@@ -21,9 +19,6 @@ public class Layout{
     private LinkedList<Integer>     offense_list;                               //holds the slot ids which have been marked as 'offense'
     private Destination[]           destination_list;                           //holds the information of the available destinations at the Layout
     private Slot[]                  slot_list;                                  //holds the information of the slots present at the parking layout
-    private int                     PORT;
-//    private ServerSocket            server;
-    //    private static Socket server;
     //Methods declaration
 
     public Layout(){
@@ -136,6 +131,8 @@ public class Layout{
                     //assign id and coordinates
                     Point p = new Point(i,j);
                     slot_list[k] = new Slot(k+1 );
+
+
                     slot_list[k].inputSlotCoord(p);
                     k = k + 1;
                 }
@@ -180,8 +177,6 @@ public class Layout{
         extractSlotsFromLayout(r,c,data);
         assignDistances();
     }
-
-
 
     public static void main(String[] args) {
 
