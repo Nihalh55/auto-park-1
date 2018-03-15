@@ -3,12 +3,10 @@ package com.autopark.sou;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -39,15 +37,14 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     private String id;
     private static final int REQUEST_IMAGE = 100;
+    private static final int CAR_EXIT = 101;
     private static final int PERMISSIONS = 1;
     private String ANDROID_DATA_DIR;
     private static File destination;
@@ -70,16 +67,21 @@ public class MainActivity extends AppCompatActivity {
                 checkPermission();
             }
         });
+
+        findViewById(R.id.doneBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                simulateLeaving();
+            }
+        });
+
         resultTextView = (TextView) findViewById(R.id.textView);
         imageView = (ImageView) findViewById(R.id.imageView);
-
         resultTextView.setText("Press floating button to start");
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
-        // ITS CRASHING HERE
         settings = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-
         id = settings.getString(SettingsActivity.KEY_SLOT_ID, "1");
         port = settings.getString(SettingsActivity.KEY_SERVER_PORT, "5050");
         serverAddress = settings.getString(SettingsActivity.KEY_SERVER_ADDR, "192.168.12.1");
@@ -102,6 +104,59 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return (super.onOptionsItemSelected(item));
+    }
+
+    private void checkPermission() {
+        List<String> permissions = new ArrayList<>();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.CAMERA);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.INTERNET);
+        }
+        if (!permissions.isEmpty()) {
+            Toast.makeText(this, "Permissions required", Toast.LENGTH_LONG).show();
+            String[] params = permissions.toArray(new String[permissions.size()]);
+            ActivityCompat.requestPermissions(this, params, PERMISSIONS);
+        }
+        else {
+            takePicture();
+        }
+    }
+
+    public String dateToString(Date date, String format) {
+        SimpleDateFormat df = new SimpleDateFormat(format, Locale.getDefault());
+        return df.format(date);
+    }
+
+    public void takePicture() {
+        // Use a folder to store all results
+        File folder = new File(Environment.getExternalStorageDirectory() + "/OpenALPR/");
+        if (!folder.exists()) {
+            folder.mkdir();
+        }
+
+        // Generate the path for the next photo
+        String name = dateToString(new Date(), "yyyy-MM-dd-hh-mm-ss");
+        destination = new File(folder, name + ".jpg");
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(MainActivity.this, getString(R.string.file_provider_authority), destination));
+        startActivityForResult(intent, REQUEST_IMAGE);
+    }
+
+    public void simulateLeaving() {
+//        Intent intent = new Intent();
+//        startActivityForResult(intent, CAR_EXIT);
+        Client myClient = new Client(serverAddress, Integer.parseInt(port), String.valueOf(id) + ":" + "Exit");
+        myClient.execute();
+        Toast.makeText(MainActivity.this, "Car Exit Flag Sent", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -140,13 +195,12 @@ public class MainActivity extends AppCompatActivity {
                                             + "\nProcessing time: " + String.format("%.2f", ((results.getProcessingTimeMs() / 1000.0) % 60)) + " seconds");
                                     resultTextView.setText(prettyResult);
 
-                                    Client myClient = new Client(serverAddress, Integer.parseInt(port), String.valueOf(id) + ":" + results.getResults().get(0).getPlate()  , MainActivity.this);
+                                    Client myClient = new Client(serverAddress, Integer.parseInt(port), String.valueOf(id) + ":" + results.getResults().get(0).getPlate());
                                     myClient.execute();
 
                                 }
                             }
                         });
-
                     } catch (JsonSyntaxException exception) {
                         final ResultsError resultsError = new Gson().fromJson(result, ResultsError.class);
 
@@ -157,60 +211,10 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                     }
-
                     progress.dismiss();
                 }
             });
         }
-    }
-
-    private void checkPermission() {
-        List<String> permissions = new ArrayList<>();
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
-        }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            permissions.add(Manifest.permission.CAMERA);
-        }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-            permissions.add(Manifest.permission.INTERNET);
-        }
-
-        if (!permissions.isEmpty()) {
-            Toast.makeText(this, "Permissions required", Toast.LENGTH_LONG).show();
-            String[] params = permissions.toArray(new String[permissions.size()]);
-            ActivityCompat.requestPermissions(this, params, PERMISSIONS);
-        }
-
-        else { // We already have permissions, so handle as normal
-            takePicture();
-        }
-    }
-
-
-    public String dateToString(Date date, String format) {
-        SimpleDateFormat df = new SimpleDateFormat(format, Locale.getDefault());
-
-        return df.format(date);
-    }
-
-    public void takePicture() {
-        // Use a folder to store all results
-        File folder = new File(Environment.getExternalStorageDirectory() + "/OpenALPR/");
-        if (!folder.exists()) {
-            folder.mkdir();
-        }
-
-        // Generate the path for the next photo
-        String name = dateToString(new Date(), "yyyy-MM-dd-hh-mm-ss");
-        destination = new File(folder, name + ".jpg");
-
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(MainActivity.this, getString(R.string.file_provider_authority), destination));
-        startActivityForResult(intent, REQUEST_IMAGE);
     }
 
     @Override
@@ -224,6 +228,5 @@ public class MainActivity extends AppCompatActivity {
         id = settings.getString (SettingsActivity.KEY_SLOT_ID, "1");
         port = settings.getString(SettingsActivity.KEY_SERVER_PORT, "5050");
         serverAddress = settings.getString(SettingsActivity.KEY_SERVER_ADDR, "192.168.12.1");
-
     }
 }
