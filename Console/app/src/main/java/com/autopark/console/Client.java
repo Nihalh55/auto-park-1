@@ -1,4 +1,4 @@
-package com.autopark.sou;
+package com.autopark.console;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -25,20 +25,9 @@ public class Client extends AsyncTask<Void, Void, Void> {
 
 		//int exitFlag = 0;
 			try {
-
-				int exitFlag = 0;
-				while(exitFlag == 0) {
-                    socket = new Socket(dstAddress, dstPort);
+				    socket = new Socket(dstAddress, dstPort);
                     DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-                    DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-
                     dataOutputStream.writeUTF(message);
-
-                    exitFlag = dataInputStream.readInt();
-                    System.out.print(exitFlag);
-                    socket.close();
-                }
-
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
