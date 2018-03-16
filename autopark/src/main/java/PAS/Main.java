@@ -7,8 +7,8 @@ public class Main {
     //Class starts
 
     //Data Member declarations
-
-
+    static LayoutWrapper    get_layout;                                                           //gui to get layout
+    static Layout           layout = new Layout();                                                               //holds layout info.
 
     //Method Declarations
 
@@ -32,10 +32,14 @@ public class Main {
         //1)    Input the layout -> a 10x10 grid will be shown -> P is slot,
         //      D is destination and . is a road unit -> press next to continue
 
-        JOptionPane.showMessageDialog(frame, "        Please input the parking layout in the upcoming 10x10 grid.\n\n" +
-                "a) 'P' is for Parking Slot , 'D' is for destination , '.' is for road. \nb) Prompt to enter destination names will appear after input of layout.\n");
+        //JOptionPane.showMessageDialog(frame, "        Please input the parking layout in the upcoming 10x10 grid.\n\n" +
+        //        "a) 'P' is for Parking Slot , 'D' is for destination , '.' is for road. \nb) Prompt to enter destination names will appear after input of layout.\n");
+
+        get_layout = new LayoutWrapper(layout);
+        //TODO: Save layout
 
         //2)    Enter destination names for the destinations mentioned in input
+
 
 
         //3)    Press Finish

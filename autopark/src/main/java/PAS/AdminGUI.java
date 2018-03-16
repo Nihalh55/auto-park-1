@@ -16,10 +16,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Setup extends JFrame /*implements ActionListener*/{
+public class AdminGUI extends JFrame implements ActionListener{
 
     //Main class starts
     //Data member declaration
+    Object[][] data;
+    Layout layout;
 
     //The main panel
     JPanel main_panel = new JPanel();
@@ -53,7 +55,7 @@ public class Setup extends JFrame /*implements ActionListener*/{
     JButton[][] layout_units = new JButton[10][10];
     ImageIcon p = new ImageIcon("P.png");
 
-    public Setup(){
+    public AdminGUI(Object[][] data_entries , Layout layout){
 
         //Default constructor
 
@@ -61,6 +63,9 @@ public class Setup extends JFrame /*implements ActionListener*/{
         setSize(800,700);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        this.data = data_entries;
+        this.layout = layout;
 
         //----------------------------------------------------------------------
 
@@ -73,11 +78,14 @@ public class Setup extends JFrame /*implements ActionListener*/{
         center.setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
 
         int i = 0 , j = 0;
+        String temp;
         for(i=0;i<10;++i){
 
             for(j=0;j<10;++j){
 
-                layout_units[i][j] = new JButton(" ");
+                temp = data[i][j].toString();
+                layout_units[i][j] = new JButton(temp);
+                layout_units[i][j].addActionListener(this);
                 center.add(layout_units[i][j]);
             }
         }
@@ -154,18 +162,106 @@ public class Setup extends JFrame /*implements ActionListener*/{
 
     }
 
-    /*@Override
+    public void updateInfoArea(int x , int y){
+
+        //Function to show information of selected parking slot or destination in the
+        //info area in the GUI
+
+        String temp = data[x][y].toString();
+
+        if(temp == "P"){
+
+            int id , car_count, offense_count, status = 0;
+            String offense = "None" , status_string = "Available" , car_plate = "None";
+            //find the slot using x,y
+            id = layout.getSlotIDFromCoord(x,y);
+
+            car_count = layout.slot_list[id-1].getCar_count();
+            offense_count = layout.slot_list[id-1].getOffense_count();
+            status = layout.slot_list[id-1].getStatus();
+
+            if(layout.slot_list[id-1].isOffense())
+                offense = "Illegal Parking";
+
+            switch(status){
+
+                case 0: status_string = "Available";
+                        break;
+                case 1: status_string = "Car assigned but not Parked";
+                        break;
+                case -1: status_string = "Disabled";
+                        break;
+                case 2: status_string = "Car Parked";
+                        car_plate = layout.slot_list[id-1].assigned_car.getNumberPlate();
+                        break;
+            }
+
+            info_area.setText("   Parking Slot\n" + "\nSlot ID: " + id  + "\nStatus: " + status_string + "\nCar Count:"
+                + car_count + "\nOffense Count: " + offense_count + "\nOffense: " + offense + "\nParked Car Number Plate: " + car_plate);
+
+        }
+        else if(temp == "D"){
+
+            int id;
+            String name = "none";
+            //find the slot using x,y
+            id = layout.getDestIDFromCoord(x,y);
+
+            info_area.setText("   Destination\n" + "\nDestination ID: " + id);
+
+        }
+        else if(temp == "."){
+
+            info_area.setText("    Road\n\n");
+
+        }
+        else{
+
+            info_area.setText("    Blank\n\n");
+
+        }
+    }
+
+    @Override
     public void actionPerformed(ActionEvent e) {
 
         //Function called when an event happens like click of a button
+        int i = 0 , j = 0;
+        JButton jb = (JButton) e.getSource();
+        if(jb == stats_button){
 
 
-    }*/
+        }
+        else if( jb == resolve_button){
+
+
+        }
+        else if(jb == layout_button){
+
+
+        }
+        else if(jb == disable_button){
+
+        }
+        else{
+
+            for(i=0;i<10;++i){
+
+                for(j=0;j<10;++j){
+
+                    if(jb == layout_units[i][j])
+                        updateInfoArea(i,j);
+                }
+            }
+        }
+
+    }
 
     //Method declaration
     public static void main(String[] args) {
 
-        new Setup();
+        //Object[][] data = new Object[10][10];
+        //new AdminGUI(data);
     }
 
 }

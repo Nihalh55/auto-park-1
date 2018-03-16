@@ -1,8 +1,5 @@
 package PAS;
 
-//test Class
-//file created to test out stuff
-
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
@@ -184,6 +181,7 @@ public class LayoutWrapper extends JFrame implements ActionListener{
         //------------------------------------------------------------------------------------------------------------------
 
         //South part -> Button
+        next_button.addActionListener(this);
         south.add(next_button);
 
         //------------------------------------------------------------------------------------------------------------------
@@ -200,25 +198,10 @@ public class LayoutWrapper extends JFrame implements ActionListener{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    /*public void createTable(){
-
         //TODO: Mouse hover
         //TODO: get the table size fixed
         //TODO: Add images
         //TODO: what happens if you close in between ?
-
-
-        //After input is done we have to extract the information
-        frame.addWindowListener(new WindowAdapter() {
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-
-                    layout.extractInformation(number_of_rows,number_of_cols,dataEntries);
-                }
-        });
-
-    }*/
 
     public void displayData(){
 
@@ -234,28 +217,28 @@ public class LayoutWrapper extends JFrame implements ActionListener{
         }
     }
 
-    public int getNumberOfRowsInGrid(){
-
-        //Function to obtain the number of rows in the grid
-        return number_of_rows;
-    }
-
-    public int getNumberOfColsInGrid(){
-
-        //Function to obtain the number of columns in the grid
-        return number_of_cols;
-    }
-
     @Override
-    public void actionPerformed(ActionEvent actionEvent) {
+    public void actionPerformed(ActionEvent e) {
+
+        //Function to control what happens when next button is pressed
+
+        JButton jb = (JButton) e.getSource();
+        if(jb == next_button){
+
+            layout.extractInformation(number_of_rows,number_of_cols,dataEntries);
+            JOptionPane.showMessageDialog(this, "Your input has been successfully acquired. Press OK to continue.\n");
+            this.setVisible(false);
+            AdminGUI startGui = new AdminGUI(dataEntries , layout);
+        }
+
 
     }
 
     //main
     public static void main(String[] args){
 
-        Layout l = new Layout();
-        new LayoutWrapper(l);
+        //Layout l = new Layout();
+        //new LayoutWrapper(l);
 
         //Main function of the java program
 
