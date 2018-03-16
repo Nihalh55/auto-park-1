@@ -28,6 +28,7 @@ public class Client extends AsyncTask<Void, Void, Void> {
 				    socket = new Socket(dstAddress, dstPort);
                     DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                     dataOutputStream.writeUTF(message);
+                    socket.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

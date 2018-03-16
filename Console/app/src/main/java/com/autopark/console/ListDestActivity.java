@@ -47,7 +47,7 @@ public class ListDestActivity extends AppCompatActivity {
 
         handler.postDelayed(new Runnable() {
             public void run() {
-                Client myClient = new Client(serverAddress, Integer.parseInt(port), String.valueOf(5));
+                Client myClient = new Client(serverAddress, Integer.parseInt(port), String.valueOf(1));
                 myClient.execute();
                 finish();
             }

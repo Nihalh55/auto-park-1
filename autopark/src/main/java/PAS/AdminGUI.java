@@ -188,10 +188,14 @@ public class AdminGUI extends JFrame implements ActionListener{
                 case 0: status_string = "Available";
                         break;
                 case 1: status_string = "Car assigned but not Parked";
+                        car_plate = layout.slot_list[id-1].assigned_car.getNumberPlate();
                         break;
                 case -1: status_string = "Disabled";
                         break;
                 case 2: status_string = "Car Parked";
+                        car_plate = layout.slot_list[id-1].assigned_car.getNumberPlate();
+                        break;
+                case 3: status_string = "Car Parked but Offense present";
                         car_plate = layout.slot_list[id-1].assigned_car.getNumberPlate();
                         break;
             }

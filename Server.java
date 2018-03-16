@@ -1,4 +1,3 @@
-package PAS;
 
 import java.net.*;
 import java.io.*;
@@ -26,7 +25,7 @@ public class Server
             try
             {
                 message = in.readUTF();
-                // System.out.println(message);
+                System.out.println(message);
 
             }
             catch(IOException i)
@@ -50,6 +49,6 @@ public class Server
 
     public static void main(String args[])
     {
-        Server server = new Server(5050);
+        Server server = new Server(6080);
     }
 }

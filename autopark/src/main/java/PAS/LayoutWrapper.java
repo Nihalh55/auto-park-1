@@ -229,6 +229,8 @@ public class LayoutWrapper extends JFrame implements ActionListener{
             JOptionPane.showMessageDialog(this, "Your input has been successfully acquired. Press OK to continue.\n");
             this.setVisible(false);
             AdminGUI startGui = new AdminGUI(dataEntries , layout);
+            //TODO: Uncomment layout start
+            layout.start();
         }
 
 

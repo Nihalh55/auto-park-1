@@ -18,6 +18,10 @@ public class Car{
 
     //Method declarations
 
+    public Car() {
+        car_number_plate = null;
+    }
+
     public String getNumberPlate(){
 
         //Function to get the number plate of the car that is parked at the slot */

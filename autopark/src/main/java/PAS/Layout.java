@@ -2,10 +2,13 @@ package PAS;
 //Layout Class
 //This class decribes the parking layout which will be inputted by the user
 
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.LinkedList;
 import java.awt.Point;                                                          //Imported this library for the Point class
 
-public class Layout{
+public class Layout extends Thread{
 
     //Main class begins
     //Data members declaration segment
@@ -178,26 +181,6 @@ public class Layout{
         assignDistances();
     }
 
-    public int getOptimalSlot(int id){
-
-        //Function to get the slot id
-        int i = 0, optimal_slot_id = 1;
-        double[] temp;
-        double min = 0.0;
-
-        for(i=0;i<capacity;++i){
-
-            temp = slot_list[i].getDistances();
-            if(min >= temp[id-1]){
-
-                min = temp[id-1];
-                optimal_slot_id = i+1;
-            }
-        }
-
-        return optimal_slot_id;
-    }
-
     public int getSlotIDFromCoord(int x , int y){
 
         //Function to obtain slot id from coordinates
@@ -226,6 +209,76 @@ public class Layout{
         }
 
         return -1;
+    }
+
+    // The Real Function.
+
+    public int getOptimalSlot(int id){
+
+        //Function to get the slot id
+        int i = 0, optimal_slot_id = 1;
+        double[] temp;
+        double min = 0.0;
+
+        for(i=0;i<capacity;++i){
+
+            if (slot_list[i].getStatus() != 0)
+                continue;
+            temp = slot_list[i].getDistances();
+            if(min >= temp[id-1]){
+
+                min = temp[id-1];
+                optimal_slot_id = i+1;
+            }
+        }
+
+        return optimal_slot_id;
+    }
+
+    @Override
+    public void run() {
+        System.out.println ("System Start");
+        slot_list[0].initServer(5050);
+        try {
+
+            ServerSocket server = new ServerSocket(6060);
+
+            while(true) {
+                Socket talkToConsole = server.accept();
+
+                DataInputStream in = new DataInputStream(new BufferedInputStream(talkToConsole.getInputStream()));
+
+                String message = in.readUTF();
+                String[] arr = message.split(":", 2);
+                System.out.println(message);
+
+                int wanted_Dest = Integer.parseInt(arr[0]);
+
+                talkToConsole.close();
+
+                Socket talkToConsoleSOU = server.accept();
+                in = new DataInputStream(new BufferedInputStream(talkToConsoleSOU.getInputStream()));
+                DataOutputStream out = new DataOutputStream(new BufferedOutputStream(talkToConsoleSOU.getOutputStream()));
+
+                message = in.readUTF();
+                out.writeInt(1);
+
+                String[] arr1 = message.split(":", 2);
+                System.out.println(message);
+
+                talkToConsoleSOU.close();
+
+                int id = getOptimalSlot(wanted_Dest);
+
+                System.out.println(id);
+
+                slot_list[id - 1].assignCar(arr1[1]);
+                slot_list[id - 1].start();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

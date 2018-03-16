@@ -135,7 +135,7 @@ public class Slot extends Thread{
     //TODO: Java Doc for isOffense
 
     public boolean isOffense(){
-        offense_flag = !(sou_car.getNumberPlate() == assigned_car.getNumberPlate());
+        offense_flag = !(sou_car.getNumberPlate().equals(assigned_car.getNumberPlate()));
         return offense_flag;
     }
 
