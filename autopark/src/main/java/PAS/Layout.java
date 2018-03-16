@@ -18,7 +18,7 @@ public class Layout{
     private int                     total_number_of_days;                       //holds the number of days since the start of the implementation f the software on the Layout
     private LinkedList<Integer>     offense_list;                               //holds the slot ids which have been marked as 'offense'
     private Destination[]           destination_list;                           //holds the information of the available destinations at the Layout
-    private Slot[]                  slot_list;                                  //holds the information of the slots present at the parking layout
+    public Slot[]                   slot_list;                                  //holds the information of the slots present at the parking layout
     //Methods declaration
 
     public Layout(){
@@ -176,6 +176,56 @@ public class Layout{
         extractDestinationsFromLayout(r,c,data);
         extractSlotsFromLayout(r,c,data);
         assignDistances();
+    }
+
+    public int getOptimalSlot(int id){
+
+        //Function to get the slot id
+        int i = 0, optimal_slot_id = 1;
+        double[] temp;
+        double min = 0.0;
+
+        for(i=0;i<capacity;++i){
+
+            temp = slot_list[i].getDistances();
+            if(min >= temp[id-1]){
+
+                min = temp[id-1];
+                optimal_slot_id = i+1;
+            }
+        }
+
+        return optimal_slot_id;
+    }
+
+    public int getSlotIDFromCoord(int x , int y){
+
+        //Function to obtain slot id from coordinates
+        int i = 0 ;
+        Point temp;
+        for(i=0;i<capacity;++i){
+
+            temp = slot_list[i].getSlotCoord();
+            if((temp.getX() == x) && (temp.getY() == y))
+                return i+1;
+        }
+
+        return -1;
+    }
+
+    public int getDestIDFromCoord(int x , int y){
+
+        //Function to obtain destination id from coordinates
+        int i = 0 ;
+        Point temp;
+        for(i=0;i<number_of_destinations;++i){
+
+            temp = destination_list[i].getDestCoord();
+            if((temp.getX() == x) && (temp.getY() == y))
+                return i+1;
+        }
+
+        return -1;
     }
 
     public static void main(String[] args) {

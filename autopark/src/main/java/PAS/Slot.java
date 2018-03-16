@@ -27,7 +27,7 @@ public class Slot extends Thread{
     private int                 car_count;                                      //holds the number of cars that parked at that slot
     private int                 offense_count;                                  //holds the number of times an offense has taken place at that slot
     private boolean             offense_flag;                                   //holds offense status
-    private Car                 assigned_car;                                   //holds info. of car assigned by the layout class
+    public Car                 assigned_car;                                   //holds info. of car assigned by the layout class
     private Car                 sou_car;                                        //holds the info. of car returned by the sou class
     private LinkedList<Car>     car_log;                                        //holds information of all the cars that visited the slot
     private double[]            distance_to_destinations;                       //holds the distances to various destinations present in and around the parking layout
