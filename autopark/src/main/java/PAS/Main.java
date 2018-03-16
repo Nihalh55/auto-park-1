@@ -20,6 +20,7 @@ public class Main {
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------
 
+        //TODO: set default close ops
         //First is a welcome dialog box -> Thank you for purchasing the product
         JFrame frame = new JFrame();                                                                                                            //frame for dialog boxes
         JOptionPane.showMessageDialog(frame, "Welcome! Thank you for purchasing our product.\n                    Press OK to continue.");
@@ -30,10 +31,16 @@ public class Main {
         //of instructions which are:
         //1)    Input the layout -> a 10x10 grid will be shown -> P is slot,
         //      D is destination and . is a road unit -> press next to continue
+
+        JOptionPane.showMessageDialog(frame, "        Please input the parking layout in the upcoming 10x10 grid.\n\n" +
+                "a) 'P' is for Parking Slot , 'D' is for destination , '.' is for road. \nb) Prompt to enter destination names will appear after input of layout.\n");
+
         //2)    Enter destination names for the destinations mentioned in input
+
+
         //3)    Press Finish
 
-        
+
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------
 
