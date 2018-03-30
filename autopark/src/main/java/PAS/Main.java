@@ -42,18 +42,21 @@ public class Main {
         //if old user then login, if wrong login repeat otherwise
         //else continue
 
+        get_layout = new LayoutWrapper(layout);
+
         File login_file_check = new File("Login_Details.txt");
-        while(!(login_file_check.exists())){
+        if(!(login_file_check.exists())){
 
             //user account not made
+            login = new Login(get_layout);
             new_user = new NewUser(login);
         }
+        else{
 
-        //User account exists
-        login = new Login();
-        login.setVisible(true);
-
-
+            //User account exists
+            login = new Login(get_layout);
+            login.setVisible(true);
+        }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -65,7 +68,8 @@ public class Main {
         //JOptionPane.showMessageDialog(frame, "        Please input the parking layout in the upcoming 10x10 grid.\n\n" +
         //        "a) 'P' is for Parking Slot , 'D' is for destination , '.' is for road. \nb) Prompt to enter destination names will appear after input of layout.\n");
 
-        get_layout = new LayoutWrapper(layout);
+        //get_layout = new LayoutWrapper(layout);
+
         //TODO: Save layout
 
         //2)    Enter destination names for the destinations mentioned in input

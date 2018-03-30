@@ -82,7 +82,6 @@ public class NewUser extends JFrame implements ActionListener{
             JOptionPane.showMessageDialog(this, "User Created! Press OK to go back to Login Page.");
             this.setVisible(false);
             login.setVisible(true);
-
         }
     }
 

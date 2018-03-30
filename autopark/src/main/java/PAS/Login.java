@@ -22,8 +22,10 @@ public class Login extends JFrame implements ActionListener{
     JTextField user_name_text = new JTextField();
     JTextField password_text = new JTextField();
 
+    LayoutWrapper get_layout;
+
     //Method Declarations
-    public Login(){
+    public Login(LayoutWrapper get_layout){
 
         //Default constructor
 
@@ -31,6 +33,8 @@ public class Login extends JFrame implements ActionListener{
         setSize(600,200);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        this.get_layout = get_layout;
 
         //Add title to the main panel
         main_panel.setLayout(new BorderLayout());
@@ -45,6 +49,7 @@ public class Login extends JFrame implements ActionListener{
         main_panel.add(center, BorderLayout.CENTER);
 
         //Button add
+        submit.addActionListener(this);
         main_panel.add(submit, BorderLayout.SOUTH);
 
         add(main_panel);
@@ -57,6 +62,7 @@ public class Login extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent ev){
 
         boolean correct_user = true;
+        Object obj = new Object();
 
         JButton jb = (JButton) ev.getSource();
         if(jb == submit){
@@ -69,9 +75,9 @@ public class Login extends JFrame implements ActionListener{
                 String read_user_name = bufferreader.readLine();
                 String read_password = bufferreader.readLine();
 
-                if(read_user_name == entered_user_name && read_password == entered_password)
+                if((new String(read_user_name).equals(entered_user_name)) && (new String(read_password).equals(entered_password))){
                     correct_user = true;
-                else
+                } else
                     correct_user = false;
             }
             catch(Exception e){
@@ -81,10 +87,16 @@ public class Login extends JFrame implements ActionListener{
 
             if(correct_user){
 
-                
+                JOptionPane.showMessageDialog(this, "Login Successful! Press OK to continue.");
+                this.setVisible(false);
+                get_layout.setVisible(true);
+            }
+            else{
+
+                JOptionPane.showMessageDialog(this, "Login Unsuccessful! Press OK to login again.");
+                SwingUtilities.updateComponentTreeUI(this);
             }
         }
-
     }
 
     public static void main(String[] args) {
