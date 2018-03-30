@@ -27,6 +27,22 @@ public class Main {
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------
 
+        //Next we have to do the login part of the Project
+        //Each time on start a login page will appear.
+        //Only one user login allowed -> no multiple users
+        //So it checks if file containing user details present
+        //if no then new user , else old user
+
+        //If new then -> Take Name, email ID and pass word (email verification?)
+        //Then go back to login
+
+        //if old user then login, if wrong login repeat otherwise
+        //else continue
+
+
+
+        //-----------------------------------------------------------------------------------------------------------------------------------------------
+
         //Next is information dialog box which will give the user a small set
         //of instructions which are:
         //1)    Input the layout -> a 10x10 grid will be shown -> P is slot,
