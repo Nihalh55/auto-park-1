@@ -1,6 +1,7 @@
 package PAS;
 
 import javax.swing.*;
+import java.io.File;
 
 public class Main {
 
@@ -9,6 +10,8 @@ public class Main {
     //Data Member declarations
     static LayoutWrapper    get_layout;                                                           //gui to get layout
     static Layout           layout = new Layout();                                                               //holds layout info.
+    static Login            login;
+    static NewUser          new_user;
 
     //Method Declarations
 
@@ -27,6 +30,36 @@ public class Main {
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------
 
+        //Next we have to do the login part of the Project
+        //Each time on start a login page will appear.
+        //Only one user login allowed -> no multiple users
+        //So it checks if file containing user details present
+        //if no then new user , else old user
+
+        //If new then -> Take Name, email ID and pass word (email verification?)
+        //Then go back to login
+
+        //if old user then login, if wrong login repeat otherwise
+        //else continue
+
+        get_layout = new LayoutWrapper(layout);
+
+        File login_file_check = new File("Login_Details.txt");
+        if(!(login_file_check.exists())){
+
+            //user account not made
+            login = new Login(get_layout);
+            new_user = new NewUser(login);
+        }
+        else{
+
+            //User account exists
+            login = new Login(get_layout);
+            login.setVisible(true);
+        }
+
+        //-----------------------------------------------------------------------------------------------------------------------------------------------
+
         //Next is information dialog box which will give the user a small set
         //of instructions which are:
         //1)    Input the layout -> a 10x10 grid will be shown -> P is slot,
@@ -35,7 +68,8 @@ public class Main {
         //JOptionPane.showMessageDialog(frame, "        Please input the parking layout in the upcoming 10x10 grid.\n\n" +
         //        "a) 'P' is for Parking Slot , 'D' is for destination , '.' is for road. \nb) Prompt to enter destination names will appear after input of layout.\n");
 
-        get_layout = new LayoutWrapper(layout);
+        //get_layout = new LayoutWrapper(layout);
+
         //TODO: Save layout
 
         //2)    Enter destination names for the destinations mentioned in input
