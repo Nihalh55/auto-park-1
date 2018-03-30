@@ -1,6 +1,7 @@
 package PAS;
 
 import javax.swing.*;
+import java.io.File;
 
 public class Main {
 
@@ -9,6 +10,8 @@ public class Main {
     //Data Member declarations
     static LayoutWrapper    get_layout;                                                           //gui to get layout
     static Layout           layout = new Layout();                                                               //holds layout info.
+    static Login            login;
+    static NewUser          new_user;
 
     //Method Declarations
 
@@ -38,6 +41,17 @@ public class Main {
 
         //if old user then login, if wrong login repeat otherwise
         //else continue
+
+        File login_file_check = new File("Login_Details.txt");
+        while(!(login_file_check.exists())){
+
+            //user account not made
+            new_user = new NewUser(login);
+        }
+
+        //User account exists
+        login = new Login();
+        login.setVisible(true);
 
 
 
