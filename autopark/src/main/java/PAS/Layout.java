@@ -252,13 +252,14 @@ public class Layout extends Thread{
                 Socket talkToConsole = server.accept();
 
                 DataInputStream in = new DataInputStream(new BufferedInputStream(talkToConsole.getInputStream()));
-                DataOutputStream out = new DataOutputStream(new BufferedOutputStream(talkToConsole.getOutputStream()));
+                DataOutputStream out = new DataOutputStream(talkToConsole.getOutputStream());
 
                 String message = in.readUTF();
                 String[] arr = message.split(":", 2);
                 System.out.println(message);
                 int wanted_Dest = Integer.parseInt(arr[0]);
                 int id = getOptimalSlot(wanted_Dest);
+                //out.writeUTF(String.valueOf(id));
                 out.writeUTF(String.valueOf(id));
                 System.out.println(id);
 

@@ -11,7 +11,7 @@ public class Car{
     //Main class begins
     //Data memeber declaration
 
-    private String          car_number_plate;                                        //holds the number plate info. of the car currently occupying the slot
+    private String          car_number_plate;                             //holds the number plate info. of the car currently occupying the slot
     private LocalDateTime   entry_time;                                //holds the entry time of the car
     private LocalDateTime   exit_time;                                 //holds the exit time of the car
     // Image?
@@ -19,7 +19,7 @@ public class Car{
     //Method declarations
 
     public Car() {
-        car_number_plate = null;
+        car_number_plate = "__unassigned__";
     }
 
     public String getNumberPlate(){
@@ -60,9 +60,7 @@ public class Car{
 
     //Main
     public static void main(String[] args) {
-
         //Main function begins
-
         //System.out.println("hi");
     }
 }

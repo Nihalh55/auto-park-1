@@ -53,13 +53,9 @@ public class DestAdapter extends ArrayAdapter<Destination> {
             @Override
             public void onClick(View v) {
                 Toast.makeText(mContext, dest.getname(), Toast.LENGTH_SHORT).show();
-                Client myClient = new Client(serverAddress, Integer.parseInt(port), String.valueOf(dest.getID()) + ":" + dest.getname());
+                Client myClient = new Client(serverAddress, Integer.parseInt(port), String.valueOf(dest.getID()) + ":" + dest.getname(), (Activity)mContext);
                 myClient.execute();
-                String slot = myClient.getSlot();
-                Intent i = new Intent(((Activity)mContext), DisplaySlot.class);
-                i.putExtra("Slot", slot);
-                mContext.startActivity(i);
-                ((Activity)mContext).finish();
+
             }
         });
 

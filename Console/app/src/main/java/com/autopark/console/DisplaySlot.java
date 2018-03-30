@@ -24,7 +24,7 @@ public class DisplaySlot extends AppCompatActivity {
         Intent i = getIntent();
         String slot = i.getExtras().getString("Slot", "999");
 
-        ((TextView)findViewById(R.id.slotView)).setText(String.valueOf(slot));
+        ((TextView)findViewById(R.id.slotView)).setText(slot);
 
         findViewById(R.id.doneBtn).setOnClickListener(new View.OnClickListener() {
             @Override

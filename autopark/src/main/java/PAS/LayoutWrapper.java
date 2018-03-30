@@ -51,8 +51,6 @@ public class LayoutWrapper extends JFrame implements ActionListener{
         }
 
         public String getColumnName(int column){
-
-
             return columnTitles[column];
         }
 
