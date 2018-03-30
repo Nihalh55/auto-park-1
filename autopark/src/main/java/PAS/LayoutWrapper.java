@@ -192,7 +192,7 @@ public class LayoutWrapper extends JFrame implements ActionListener{
         main_panel.add(south , BorderLayout.SOUTH);
 
         add(main_panel);
-        setVisible(true);
+        setVisible(false);
         setSize(700,400);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
