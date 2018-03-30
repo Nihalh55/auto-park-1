@@ -49,6 +49,7 @@ public class ListDestActivity extends AppCompatActivity {
             public void run() {
                 Client myClient = new Client(serverAddress, Integer.parseInt(port), String.valueOf(1));
                 myClient.execute();
+                String slot = myClient.getSlot();
                 finish();
             }
         }, 60000);

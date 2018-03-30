@@ -196,6 +196,18 @@ public class LayoutWrapper extends JFrame implements ActionListener{
         setSize(700,400);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                try {
+                    layout.join();
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
     }
 
         //TODO: Mouse hover

@@ -22,6 +22,9 @@ public class Layout extends Thread{
     private LinkedList<Integer>     offense_list;                               //holds the slot ids which have been marked as 'offense'
     private Destination[]           destination_list;                           //holds the information of the available destinations at the Layout
     public Slot[]                   slot_list;                                  //holds the information of the slots present at the parking layout
+
+    private boolean                 open;
+
     //Methods declaration
 
     public Layout(){
@@ -29,6 +32,7 @@ public class Layout extends Thread{
         //Default constructor
         number_of_destinations = 0;
         capacity = 0;
+        open = false;
     }
 
     public double getAverageSOUAccuracy() {
@@ -213,7 +217,7 @@ public class Layout extends Thread{
 
     // The Real Function.
 
-    public int getOptimalSlot(int id){
+    private int getOptimalSlot(int id){
 
         //Function to get the slot id
         int i = 0, optimal_slot_id = 1;
@@ -237,48 +241,47 @@ public class Layout extends Thread{
 
     @Override
     public void run() {
-        System.out.println ("System Start");
-        slot_list[0].initServer(5050);
+        System.out.println("System Start");
+        open = true;
+        Slot.initServer(5050);
         try {
 
             ServerSocket server = new ServerSocket(6060);
 
-            while(true) {
+            while (open) {
                 Socket talkToConsole = server.accept();
 
                 DataInputStream in = new DataInputStream(new BufferedInputStream(talkToConsole.getInputStream()));
+                DataOutputStream out = new DataOutputStream(new BufferedOutputStream(talkToConsole.getOutputStream()));
 
                 String message = in.readUTF();
                 String[] arr = message.split(":", 2);
                 System.out.println(message);
-
                 int wanted_Dest = Integer.parseInt(arr[0]);
+                int id = getOptimalSlot(wanted_Dest);
+                out.writeUTF(String.valueOf(id));
+                System.out.println(id);
 
                 talkToConsole.close();
 
                 Socket talkToConsoleSOU = server.accept();
                 in = new DataInputStream(new BufferedInputStream(talkToConsoleSOU.getInputStream()));
-                DataOutputStream out = new DataOutputStream(new BufferedOutputStream(talkToConsoleSOU.getOutputStream()));
+                out = new DataOutputStream(new BufferedOutputStream(talkToConsoleSOU.getOutputStream()));
 
                 message = in.readUTF();
-                out.writeInt(1);
-
-                String[] arr1 = message.split(":", 2);
                 System.out.println(message);
 
+                String[] arr1 = message.split(":", 2);
+                out.writeInt(1);
                 talkToConsoleSOU.close();
-
-                int id = getOptimalSlot(wanted_Dest);
-
-                System.out.println(id);
 
                 slot_list[id - 1].assignCar(arr1[1]);
                 slot_list[id - 1].start();
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
 
     public static void main(String[] args) {
