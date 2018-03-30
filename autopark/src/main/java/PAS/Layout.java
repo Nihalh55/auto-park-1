@@ -222,7 +222,7 @@ public class Layout extends Thread{
         //Function to get the slot id
         int i = 0, optimal_slot_id = 1;
         double[] temp;
-        double min = 0.0;
+        double min = 10000000;
 
         for(i=0;i<capacity;++i){
 
