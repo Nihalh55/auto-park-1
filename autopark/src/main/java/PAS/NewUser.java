@@ -18,8 +18,8 @@ public class NewUser extends JFrame implements ActionListener{
     JLabel confirm_password = new JLabel("Confirm Password: ");
     JButton submit  = new JButton("Submit");
     JTextField user_name_text = new JTextField();
-    JTextField password_text = new JTextField();
-    JTextField confirm_password_text = new JTextField();
+    JPasswordField password_text = new JPasswordField();
+    JPasswordField confirm_password_text = new JPasswordField();
 
     Login login;
 
@@ -66,7 +66,7 @@ public class NewUser extends JFrame implements ActionListener{
         if(jb == submit){
 
             String entered_user_name = user_name_text.getText();
-            String entered_password = password_text.getText();
+            String entered_password = new String(password_text.getPassword());
             try{
 
                 PrintWriter writer = new PrintWriter("Login_Details.txt", "UTF-8");

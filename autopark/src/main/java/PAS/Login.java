@@ -20,7 +20,7 @@ public class Login extends JFrame implements ActionListener{
     JLabel password = new JLabel("Enter Password: ");
     JButton submit  = new JButton("Submit");
     JTextField user_name_text = new JTextField();
-    JTextField password_text = new JTextField();
+    JPasswordField password_text = new JPasswordField();
 
     LayoutWrapper get_layout;
 
@@ -68,7 +68,7 @@ public class Login extends JFrame implements ActionListener{
         if(jb == submit){
 
             String entered_user_name = user_name_text.getText();
-            String entered_password = password_text.getText();
+            String entered_password = new String(password_text.getPassword());
             try {
 
                 BufferedReader bufferreader = new BufferedReader(new FileReader("Login_Details.txt"));
